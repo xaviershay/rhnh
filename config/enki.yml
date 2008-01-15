@@ -1,10 +1,9 @@
-title: My Enki Blog
-url:   http://enkiblog.com
+title: Robot Has No Heart
+url:   http://rhnh.net
 author: 
-  name:    Don Alias
-  email:   don@enkiblog.com
-  open_id: http://enkiblog.com
+  name:    Xavier Shay
+  open_id: http://rhnh.net
 
 open_id_delegation:
   server:   http://www.myopenid.com/server
-  delegate: http://username.myopenid.com
+  delegate: http://rhnh.net
