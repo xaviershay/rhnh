@@ -94,6 +94,16 @@ h1#page_heading
   font-size: 24pt;
 }
 
+h1#page_heading a
+{
+  color: black;
+}
+
+h1#page_heading a:hover
+{
+  text-decoration: none;
+}
+
 h2
 {
   font-size: 1.2em;
