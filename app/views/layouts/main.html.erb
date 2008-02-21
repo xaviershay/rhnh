@@ -7,7 +7,7 @@
 <head>
   <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
   <title><%= yield(:page_title) || config[:title] %></title>
-  <%= stylesheet_link_tag 'main' %>
+  <%= stylesheet_link_tag 'rhnh-standard' %>
   <%= javascript_include_tag 'jquery-1.2.1.js' %>
   <%= open_id_delegation_link_tags(config[:open_id_delegation, :server], config[:open_id_delegation, :delegate]) if config[:open_id_delegation] %>
   <%= yield(:head) %>
@@ -15,11 +15,45 @@
 <body>
   <div id="page_container">
     <h1 id="page_heading"><a href="<%= config[:url] %>"><%= config[:title] %></a></h1>
+    <img id="robot-head" alt="A robot that does not have a heart" class="eyecandy" src="/images/robot_head.png" />
+<!--
+    <svg:svg xmlns:svg="http://www.w3.org/2000/svg" version="1.1" id="robot-head" height="200" width="200" viewBox="0 0 400 400"> 
+      <svg:g style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+        <svg:path d="M 86.534718,306.88773 C 88.661553,195.25826 72.18885,69.611727 217.84615,66.150129 C 367.86734,56.17503 319.13834,190.2001 322.40896,295.53984"></svg:path>
+        <svg:path d="M 16.826186,302.83492 C 122.72876,320.18487 270.32017,290.6888 379.95902,296.3504 C 391.4326,350.21405 391.67856,393.60081 198.3926,390.37586 C 5.8390134,391.69012 22.390062,347.2075 16.826186,302.83492 z "></svg:path>
+        <svg:path d="M 300.52371,80.740282 L 331.32516,46.696581 C 261.26599,-13.082708 335.91735,16.436927 355.64209,30.485299 C 379.24261,45.784017 391.82251,84.272225 330.752,46.598241"></svg:path>
+        <svg:path d="M 127.45679,95.391148 L 96.506391,70.172302 C 131.61654,40.168202 92.014574,40.019295 74.153319,54.123953 C 44.809168,82.579504 70.389606,96.482146 96.506391,70.172302"></svg:path>
+        <svg:path d="M 175.02871,179.07185 C 206.67521,146.05311 176.66737,118.61446 133.18835,152.70669 C 100.87172,185.97477 147.56803,205.77429 175.02871,179.07185 z "></svg:path>
+        <svg:path d="M 249.53892,169.90136 C 284.34958,206.99229 304.07966,164.94528 277.05039,145.25567 C 251.44304,127.80041 230.44863,135.78042 249.53892,169.90136 z "></svg:path>
+      </svg:g>
+    </svg:svg>
+-->
 
     <div id="main">
       <%= yield %>
     </div>
-
+    <img src="/images/flower_1.png" alt="A pretty flower" id="flower_1" class="eyecandy" />
+<!--
+    <svg:svg
+xmlns:svg="http://www.w3.org/2000/svg" 
+   width="150"
+   height="175"
+   viewBox="0 0 300 350"
+   id="flower_1">
+     <svg:g
+     id="layer1"
+     style="stroke-width:10;">
+    <svg:path
+       d="M 56.966144,355.11933 C 45.700744,253.92944 97.282838,183.13652 152.53916,117.05531"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path5646" />
+    <svg:path
+       d="M 155.52605,132.45576 C 137.29201,315.9262 -142.29425,142.96072 131.84423,113.70767 C -99.77462,159.33782 118.11459,-86.043629 156.51279,97.91979 C 143.36643,-118.58031 452.33105,127.39224 173.28741,115.68115 C 392.81389,154.09761 120.30246,306.58411 155.52605,132.45576 z "
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#c41f1f;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path5648" />
+       </svg:g>
+</svg:svg>
+-->
     <div id="navigation">
       <h2>Pages</h2>
       <ul>
@@ -44,6 +78,22 @@
         </div>
       </form>
     </div>    
+    <img src="/images/flower_2.png" alt="Another pretty flower" id="flower_2" class="eyecandy" />
+<!--
+  <svg:svg
+xmlns:svg="http://www.w3.org/2000/svg" 
+   width="99"
+   height="120"
+   viewBox="0 0 330 400"
+   id="flower_2">
+  <svg:g style="fill:none;stroke:#000000;fill-rule:evenodd;stroke-width:10;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+    <svg:path d="M 283.08053,405.13782 C 299.58982,293.17869 232.21,225.63429 168.91008,151.73361" />
+    <svg:path
+       d="M 184.99688,172.9629 C 285.40634,380.1622 -42.612308,305.28179 151.76715,167.00022 C -106.87008,322.27903 46.185482,-48.02215 143.74057,134.01364 C 24.430584,-62.129527 358.598,4.9724968 174.01768,132.86012 C 418.79074,36.189053 307.04786,339.80238 184.99688,172.9629 z "
+       style="fill:#ffffff;fill-opacity:1;stroke:#c41f1f;" />
+  </svg:g>
+</svg:svg>
+-->
     
     <div id="footer"><%= config[:title] %> &#169; <%= config[:author, :name] %>. Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a> and <%= link_to "ATOM", "http://feedvalidator.org/check.cgi?url=#{config[:url]}/posts.atom" %>. Powered by <a href="http://www.enkiblog.com" title="A ruby on rails blogging app for the fashionable developer">Enki</a>.</div>
   </div>
