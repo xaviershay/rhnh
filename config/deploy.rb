@@ -33,5 +33,6 @@ namespace :deploy do
 
   task :after_update_code do
     run "cp -f #{shared_path}/config/database.yml #{release_path}/config"
+    run "cp -f #{shared_path}/config/defensio.yml #{release_path}/config"
   end
 end
