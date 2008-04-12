@@ -108,8 +108,9 @@ h2#page_subtitle
 {
   margin-left: 280px;
   margin-top:  0px;
-  height: 40px;
+  height: 50px;
   font-size: 12pt;
+  color: black;
 }
 
 h2
@@ -329,19 +330,6 @@ h2
   clear: both;
 }
 
-/* Tables */
-tr, th
-{
-  font: 10pt georgia, serif;
-  text-align: left;
-
-}
-
-th
-{
-  font-weight: bold;
-}
-
 /* Forms */
 label
 {
@@ -370,26 +358,21 @@ textarea
 table
 {
   border-spacing: 0px;
-
-  }
+}
 
 .alt, .container_alt
 {
   background-color: #fafafa;
 }
 
-td
-{
-  padding: 5px;
+th, td {
+  text-align: left;
+  padding-right: 10px
 }
 
-table.content td.date, td.title, td.type
-{ 
-  vertical-align: top;
-  white-space: nowrap;
+th {
+  color: #333333;
 }
-table.projects th.name { width: 120px; }
-table.projects th.date { width: 100px; }
 
 #bonus label
 {
