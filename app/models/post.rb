@@ -1,8 +1,10 @@
 class Post < ActiveRecord::Base
   DEFAULT_LIMIT = 15
 
-  acts_as_defensio_article 
+  acts_as_defensio_article
   acts_as_taggable
+
+  include DefensioArticle
 
   has_many :comments, :dependent => :destroy
   has_many :approved_comments, :class_name => 'Comment', :conditions => 'comments.spam = 0'
