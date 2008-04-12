@@ -8,7 +8,7 @@ Story "Legacy URLs", %{
       get page
     end
 
-    Then "the user is permanently redirected to rhnh enki feed URL", "/posts.atom" do |path|
+    Then "the user is permanently redirected to rhnh feedburner URL", "http://feeds.feedburner.com/rhnh" do |path|
       response.should redirect_to(path)
     end
   end

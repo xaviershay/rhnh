@@ -26,5 +26,5 @@ ActionController::Routing::Routes.draw do |map|
   map.formatted_posts_with_tag ':tag.:format', :controller => 'posts', :action => 'index'
 
   # Legacy routes
-  map.redirect '/feed/atom.xml', '/posts.atom', :permanent => true
+  map.redirect '/feed/atom.xml', 'http://feeds.feedburner.com/rhnh', :permanent => true
 end
