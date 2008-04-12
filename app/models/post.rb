@@ -1,10 +1,11 @@
 class Post < ActiveRecord::Base
   DEFAULT_LIMIT = 15
 
+  acts_as_defensio_article 
   acts_as_taggable
 
   has_many :comments, :dependent => :destroy
-  has_many :approved_comments, :class_name => 'Comment'
+  has_many :approved_comments, :class_name => 'Comment', :conditions => 'comments.spam = 0'
 
   before_validation :generate_slug
   before_save   :apply_filter
