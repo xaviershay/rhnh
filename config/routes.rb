@@ -24,4 +24,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':year/:month/:day/:slug', :controller => 'posts', :action => 'show'
   map.posts_with_tag ':tag', :controller => 'posts', :action => 'index'
   map.formatted_posts_with_tag ':tag.:format', :controller => 'posts', :action => 'index'
+
+  # Legacy routes
+  map.redirect '/feed/atom.xml', '/posts.atom', :permanent => true
 end
