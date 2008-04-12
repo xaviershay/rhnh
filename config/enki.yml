@@ -3,7 +3,7 @@ url:   http://rhnh.net
 feed:  http://feeds.feedburner.com/rhnh
 author: 
   name:    Xavier Shay
-  open_id: http://rhnh.net
+  open_id: https://xaviershay.myid.net/
   email:   notreal@rhnh.net
 
 # Delete the following section if your site will not be acting as an OpenID delegate
