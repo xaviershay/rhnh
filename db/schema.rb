@@ -29,6 +29,21 @@ ActiveRecord::Schema.define(:version => 7) do
   add_index "comments", ["created_at"], :name => "index_comments_on_created_at"
   add_index "comments", ["post_id"], :name => "index_comments_on_post_id"
 
+  create_table "open_id_authentication_associations", :force => true do |t|
+    t.integer "issued"
+    t.integer "lifetime"
+    t.string  "handle"
+    t.string  "assoc_type"
+    t.binary  "server_url"
+    t.binary  "secret"
+  end
+
+  create_table "open_id_authentication_nonces", :force => true do |t|
+    t.integer "timestamp",                  :null => false
+    t.string  "server_url"
+    t.string  "salt",       :default => "", :null => false
+  end
+
   create_table "pages", :force => true do |t|
     t.string   "title",      :default => "", :null => false
     t.string   "slug",       :default => "", :null => false
@@ -55,6 +70,11 @@ ActiveRecord::Schema.define(:version => 7) do
   end
 
   add_index "posts", ["published_at"], :name => "index_posts_on_published_at"
+
+  create_table "schema_migrations", :primary_key => "version", :force => true do |t|
+  end
+
+  add_index "schema_migrations", ["version"], :name => "unique_schema_migrations", :unique => true
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :default => "", :null => false
