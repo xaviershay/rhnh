@@ -2,9 +2,11 @@ title: "Xavier Shay's Blog"
 url:   http://rhnh.net
 feed:  http://feeds.feedburner.com/rhnh
 author: 
-  name:    Xavier Shay
-  open_id: https://xaviershay.myid.net/
-  email:   notreal@rhnh.net
+  name:  Xavier Shay
+  email: notreal@rhnh.net
+  open_id:
+    - http://rhnh.net/
+    - https://xaviershay.myid.net/
 
 # Delete the following section if your site will not be acting as an OpenID delegate
 open_id_delegation:
