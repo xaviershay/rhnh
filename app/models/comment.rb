@@ -1,12 +1,6 @@
 class Comment < ActiveRecord::Base
   acts_as_defensio_comment :fields => { :content => :body, :article => :post }
     
-  class << self  
-    def protected_attribute?(attribute)
-      [:author, :body].include?(attribute.to_sym)
-    end
-  end
-
   attr_accessor :openid_error
   attr_accessor :openid_valid
 
@@ -69,6 +63,18 @@ class Comment < ActiveRecord::Base
   end
 
   class << self
+    def spam_conditions(spam = true)
+      {:conditions => ['comments.spam = ?', spam]}
+    end
+
+    def find_spam(args = {})
+      find(:all, spam_conditions.merge(args))
+    end
+
+    def count_spam
+      count(:all, spam_conditions)
+    end
+
     def build_for_preview(params)
       comment = Comment.new(params)
       comment.created_at = Time.now
@@ -79,6 +85,10 @@ class Comment < ActiveRecord::Base
         comment.author = "Your OpenID Name"
       end
       comment
+    end
+
+    def protected_attribute?(attribute)
+      [:author, :body].include?(attribute.to_sym)
     end
   end
 end

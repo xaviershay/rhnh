@@ -2,6 +2,7 @@
 
 <div id="header">
 	<h1 class="skinny">Reader comments</h1>
+  <h2><%= link_to("Delete all spam comments (#{Comment.count_spam})", spam_admin_comments_path, :method => :delete, :confirm => "Are you sure you want to delete all #{Comment.count_spam} comments?") %></h2><br />
 	<% if flash[:notice] %><div class="green flash"><b>Success:</b> <%= flash[:notice] %></div><% end -%>
 </div>
 

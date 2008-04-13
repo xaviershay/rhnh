@@ -7,7 +7,7 @@ class Post < ActiveRecord::Base
   include DefensioArticle
 
   has_many :comments, :dependent => :destroy
-  has_many :approved_comments, :class_name => 'Comment', :conditions => 'comments.spam = 0'
+  has_many :approved_comments, Comment.spam_conditions(false).merge(:class_name => 'Comment')
 
   before_validation :generate_slug
   before_save   :apply_filter

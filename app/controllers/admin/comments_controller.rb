@@ -23,6 +23,11 @@ class Admin::CommentsController < Admin::BaseController
     redirect_to :back
   end
 
+  def spam
+    Comment.find_spam(:include => :post).each(&:destroy)
+    redirect_to :back
+  end
+
   protected
 
   def current_objects
