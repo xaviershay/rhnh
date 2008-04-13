@@ -28,9 +28,9 @@
 				<td class="small_col"><%= link_to(comment.post_title, edit_admin_post_path(comment.post))%></td>
         <td class="approved_col">
           <% if comment.spam? -%>
-            <%= link_to("Mark as ham", mark_as_ham_admin_comment_path(comment), :method => :put) %>
+            <%= link_to("Mark as ham",  mark_as_ham_admin_comment_path(comment), :method => :post) %>
           <% else -%>  
-            <%= link_to("Mark as spam", mark_as_spam_admin_comment_path(comment), :method => :put) %>
+            <%= link_to("Mark as spam", mark_as_spam_admin_comment_path(comment), :method => :post) %>
           <% end -%>  
         </td>
 				<td class="del_col"><%= link_to('X', admin_comment_path(comment), :method => :delete, :confirm => "You are about to delete this comment. This cannot be undone. Are you sure?") %></td>

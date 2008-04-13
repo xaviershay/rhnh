@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :pages
     admin.resources :comments, 
       :collection => {:spam => :delete},
-      :member     => {:mark_as_spam => :put, :mark_as_ham => :put}
+      :member     => {:mark_as_spam => :post, :mark_as_ham => :post}
     admin.resources :tags
     admin.resource :api, :controller => 'api'
   end
