@@ -30,8 +30,8 @@ class Admin::SessionsController < ApplicationController
           flash.now[:error] = "You are not authorized"
         end
       end
+      render :action => 'new'
     end
-    render :action => 'new'
   end
 
   def destroy
