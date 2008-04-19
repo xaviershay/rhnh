@@ -60,17 +60,6 @@ module Defensio
       def acts_as_defensio(type, options={})
         include InstanceMethods
         
-        case type
-        when :article
-          if options.has_key? :announce_when
-            after_save :announce_article
-          else
-            after_create :announce_article!
-          end
-        when :comment
-          after_create :audit_comment
-        end
-        
         @defensio_type = type
         self.defensio_options = options
         @defensio = Defensio::Client.new(@defensio_options)
@@ -86,7 +75,7 @@ module Defensio
       
       def defensio_options=(options)
         @defensio_options = {}
-        @defensio_options.merge! File.open(Defensio.config_file) { |file| YAML.load(file) }[ENV['RAILS_ENV']] if File.exists?(Defensio.config_file)
+        @defensio_options.merge! File.open(Defensio.config_file) { |file| YAML.load(file) }[RAILS_ENV] if File.exists?(Defensio.config_file)
         @defensio_options.merge! options
         @defensio_options.symbolize_keys!
       end
