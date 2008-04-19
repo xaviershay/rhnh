@@ -7,7 +7,9 @@ class Post < ActiveRecord::Base
   include DefensioArticle
 
   has_many :comments, :dependent => :destroy
-  has_many :approved_comments, Comment.spam_conditions(false).merge(:class_name => 'Comment')
+  def approved_comments
+    comments.reject {|comment| comment.spam? || commen.spaminess.nil?}
+  end
 
   before_validation :generate_slug
   before_save   :apply_filter
@@ -77,7 +79,7 @@ class Post < ActiveRecord::Base
   end
 
   def denormalize_comments_count!
-    Post.update_all(["approved_comments_count = ?", self.approved_comments.count], ["id = ?", self.id])
+    Post.update_all(["approved_comments_count = ?", self.approved_comments.length], ["id = ?", self.id])
   end
 
   def generate_slug
