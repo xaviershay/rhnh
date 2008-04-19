@@ -1,6 +1,8 @@
 class Comment < ActiveRecord::Base
-  acts_as_defensio_comment :fields => { :content => :body, :article => :post }
+  acts_as_defensio_comment :fields => { :content => :body, :article => :post }, :validate_key => false
     
+  include DefensioComment
+
   attr_accessor :openid_error
   attr_accessor :openid_valid
 

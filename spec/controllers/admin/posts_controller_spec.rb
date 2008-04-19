@@ -169,9 +169,17 @@ describe Admin::PostsController do
   end
 
   describe 'handling POST to create with valid attributes' do
-    it 'creates a post' do
+    def do_post
       session[:logged_in] = true
-      lambda { post :create, :post => valid_post_attributes }.should change(Post, :count).by(1)
+      post :create, :post => valid_post_attributes
+    end
+
+    it 'creates a post' do
+      lambda { do_post }.should change(Post, :count).by(1)
+    end
+
+    it 'announces the post to defensio' do
+      lambda { do_post }.should change(Delayed::Job, :count).by(1)
     end
   end
 

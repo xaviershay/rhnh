@@ -31,6 +31,10 @@ describe 'creating new comment', :shared => true do
     assigns(:comment).should_not be_new_record
   end
 
+  it 'audits the comment with defensio' do
+    Delayed::Job.count.should == 1
+  end
+
   it 'redirects to post' do
     response.should be_redirect
     response.should redirect_to(post_path(@mock_post))

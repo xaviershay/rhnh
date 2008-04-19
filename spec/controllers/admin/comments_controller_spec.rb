@@ -42,7 +42,7 @@ describe Admin::CommentsController do
     end
 
     it 'marks comment as spam' do
-      @comment.should_receive(:report_as_spam)
+      @comment.should_receive(:send_later).with(:report_as_spam)
       do_post
     end
 
@@ -72,7 +72,7 @@ describe Admin::CommentsController do
     end
 
     it 'marks comment as ham' do
-      @comment.should_receive(:report_as_ham)
+      @comment.should_receive(:send_later).with(:report_as_ham)
       do_post
     end
 

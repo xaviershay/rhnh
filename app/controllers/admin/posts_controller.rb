@@ -9,6 +9,7 @@ class Admin::PostsController < Admin::BaseController
     end
 
     after(:create) do
+      @post.send_later(:announce_article!)
       flash[:notice] = "Post created"
     end
 

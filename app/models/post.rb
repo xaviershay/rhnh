@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
   DEFAULT_LIMIT = 15
 
-  acts_as_defensio_article
+  acts_as_defensio_article :validate_key => false
   acts_as_taggable
 
   include DefensioArticle

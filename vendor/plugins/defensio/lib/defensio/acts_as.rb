@@ -110,21 +110,18 @@ module Defensio
       end
       
       def audit_comment
-        raise Defensio::Error,
-              "You have to pass the current request environement:\n\t@comment.env = request.env" unless @env
-        
         article_field = self.class.defensio_fields(:article)
         raise Defensio::Error,
-              "You must specify an assiociated object which acts_as_defensio_article" unless respond_to? article_field
+              "You must specify an associated object which acts_as_defensio_article" unless respond_to? article_field
         article = send article_field
         
-        fields = { :user_ip      => @env['REMOTE_ADDR'],
-                   :referrer     => @env['HTTP_REFERER'],
-                   :article_date => convert_to_defensio_date(article.created_at),
-                   :comment_type => self.class.comment_type }
+        fields = { 
+          :article_date => convert_to_defensio_date(article.created_at),
+          :comment_type => self.class.comment_type
+        }
         
         fields.merge! extract_optional_fields_value(self, :author, :content, :title, :author_email, :author_url, :prefix => 'comment_')
-        fields.merge! extract_optional_fields_value(self, :user_logged_in, :trusted_user)
+        fields.merge! extract_optional_fields_value(self, :user_logged_in, :trusted_user, :user_ip, :referrer)
         fields.merge! extract_optional_fields_value(article, :permalink)
 
         response = nil

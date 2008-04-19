@@ -14,12 +14,12 @@ class Admin::CommentsController < Admin::BaseController
   end
 
   def mark_as_spam
-    @comment.report_as_spam
+    @comment.send_later(:report_as_spam)
     redirect_to :back 
   end
 
   def mark_as_ham
-    @comment.report_as_ham
+    @comment.send_later(:report_as_ham)
     redirect_to :back
   end
 

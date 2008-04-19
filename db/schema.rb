@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 8) do
+ActiveRecord::Schema.define(:version => 10) do
 
   create_table "comments", :force => true do |t|
     t.integer  "post_id",                                    :null => false
@@ -24,10 +24,25 @@ ActiveRecord::Schema.define(:version => 8) do
     t.boolean  "spam",                    :default => false
     t.float    "spaminess"
     t.string   "signature"
+    t.string   "author_ip",               :default => "",    :null => false
+    t.string   "author_referer",          :default => "",    :null => false
   end
 
   add_index "comments", ["created_at"], :name => "index_comments_on_created_at"
   add_index "comments", ["post_id"], :name => "index_comments_on_post_id"
+  add_index "comments", ["spaminess"], :name => "index_comments_on_spaminess"
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",     :default => 0
+    t.integer  "attempts",     :default => 0
+    t.text     "handler"
+    t.string   "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_until"
+    t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "open_id_authentication_associations", :force => true do |t|
     t.integer "issued"

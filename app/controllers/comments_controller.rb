@@ -25,7 +25,8 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new((session[:pending_comment] || params[:comment] || {}).reject {|key, value| !Comment.protected_attribute?(key) })
     @comment.post = @post
-    @comment.env = request.env
+    @comment.author_ip      = request.env['REMOTE_ADDR'].to_s
+    @comment.author_referer = request.env['HTTP_REFERER'].to_s
 
     session[:pending_comment] = nil
 
@@ -60,6 +61,7 @@ class CommentsController < ApplicationController
     end
 
     if @comment.save
+      @comment.send_later(:audit_comment)
       redirect_to post_path(@post)
     else
       render :template => 'posts/show'
