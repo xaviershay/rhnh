@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
 
   has_many :comments, :dependent => :destroy
   def approved_comments
-    comments.reject {|comment| comment.spam? || commen.spaminess.nil?}
+    comments.reject {|comment| comment.spam? || comment.spaminess.nil?}
   end
 
   before_validation :generate_slug
