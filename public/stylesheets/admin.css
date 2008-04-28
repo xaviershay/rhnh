@@ -244,6 +244,10 @@ table form {
   display: inline;
 }
 
+td.action {
+  width: 60px;
+}
+
 div.pagination {
   text-align: center;
 }
