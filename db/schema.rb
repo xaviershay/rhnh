@@ -118,4 +118,12 @@ ActiveRecord::Schema.define(:version => 11) do
 
   add_index "tags", ["name"], :name => "index_tags_on_name"
 
+  create_table "undo_items", :force => true do |t|
+    t.string   "type",       :default => "", :null => false
+    t.datetime "created_at",                 :null => false
+    t.text     "data"
+  end
+
+  add_index "undo_items", ["created_at"], :name => "index_undo_items_on_created_at"
+
 end

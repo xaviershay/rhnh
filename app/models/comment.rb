@@ -3,6 +3,8 @@ class Comment < ActiveRecord::Base
     
   include DefensioComment
 
+  DEFAULT_LIMIT = 15
+
   attr_accessor :openid_error
   attr_accessor :openid_valid
 
@@ -57,6 +59,15 @@ class Comment < ActiveRecord::Base
     self.post.denormalize_comments_count!
   end
 
+  def destroy_with_undo
+    undo_item = nil
+    transaction do
+      self.destroy
+      undo_item = DeleteCommentUndo.create_undo(self)
+    end
+    undo_item
+  end
+
   # Delegates
   def post_title
     post.title
@@ -89,6 +100,14 @@ class Comment < ActiveRecord::Base
 
     def protected_attribute?(attribute)
       [:author, :body].include?(attribute.to_sym)
+    end
+
+    def find_recent(args = {})
+      options = { 
+        :limit => DEFAULT_LIMIT,
+        :order => 'created_at DESC'
+      }.merge(args)
+      find(:all, options)
     end
   end
 end
