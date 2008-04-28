@@ -133,7 +133,7 @@ describe Admin::CommentsController do
   describe 'handling POST to mark_as_spam' do
     before(:each) do
       @comment = Comment.new
-      @comment.stub!(:report_as_spam)
+      @comment.stub!(:send_later)
       Comment.stub!(:find).and_return(@comment)
     end
 
@@ -163,7 +163,7 @@ describe Admin::CommentsController do
   describe 'handling POST to mark_as_ham' do
     before(:each) do
       @comment = Comment.new
-      @comment.stub!(:report_as_ham)
+      @comment.stub!(:send_later)
       Comment.stub!(:find).and_return(@comment)
     end
 

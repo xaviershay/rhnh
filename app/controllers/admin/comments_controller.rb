@@ -1,5 +1,5 @@
 class Admin::CommentsController < Admin::BaseController
-  before_filter :find_comment, :only => [:show, :update, :destroy]
+  before_filter :find_comment, :except => [:index, :spam]
 
   def index
     @comments = Comment.paginate(
@@ -7,6 +7,11 @@ class Admin::CommentsController < Admin::BaseController
       :order => "comments.created_at DESC", 
       :page => params[:page] 
     )
+  end
+
+  def spam
+    Comment.find_spam(:include => :post).each(&:destroy)
+    redirect_to :back
   end
   
   def show
@@ -33,11 +38,6 @@ class Admin::CommentsController < Admin::BaseController
 
   def mark_as_ham
     @comment.send_later(:report_as_ham)
-    redirect_to :back
-  end
-
-  def spam
-    Comment.find_spam(:include => :post).each(&:destroy)
     redirect_to :back
   end
 

@@ -11,6 +11,7 @@ describe "/admin/comments/index.html.erb" do
       :body       => 'Hello I am a post',
       :created_at => Time.now,
       :post_title => 'A Post',
+      :spam?      => false,
       :post => mock_model(Post,
         :slug         => 'a-post',
         :published_at => Time.now

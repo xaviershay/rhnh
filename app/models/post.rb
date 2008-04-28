@@ -7,8 +7,14 @@ class Post < ActiveRecord::Base
   include DefensioArticle
 
   has_many :comments, :dependent => :destroy
-  def approved_comments
-    comments.reject {|comment| comment.spam? || comment.spaminess.nil?}
+  def approved_comments(options = {})
+    if options.empty?
+      comments.reject {|comment| comment.spam? || comment.spaminess.nil?}
+    else
+      comments.find(:all, {
+        :conditions => ['spam = ? AND spaminess IS NOT NULL', false]
+      }.merge(options))
+    end
   end
 
   before_validation :generate_slug
