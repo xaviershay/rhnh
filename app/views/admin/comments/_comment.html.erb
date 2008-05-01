@@ -4,15 +4,12 @@
   <td><%=h truncate(comment.body, 40) %></td>
   <td><%= link_to(comment.post_title, edit_admin_post_path(comment.post))%></td>
   <td>
-    <% if comment.spam? -%>
-      <% form_for(:comment, comment, :url => mark_as_ham(comment), :html => {:class => 'spam-item', :method => :post}) do |form| -%>
-        <%= image_submit_tag("silk/flag_green.png", :alt => "Mark as ham") %>
+      <% form_for(:comment, comment, :url => mark_as_ham_admin_comment_path(comment), :html => {:class => 'spam-item ham', :method => :post}) do |form| -%>
+        <%= image_submit_tag(!comment.spam? ? "silk/flag_grey.png" : "silk/flag_green.png", :alt => "Mark as ham", :disabled => !comment.spam?) %>
       <% end -%>
-    <% else -%>  
-      <% form_for(:comment, comment, :url => mark_as_spam_admin_comment_path(comment), :html => {:class => 'spam-item', :method => :post}) do |form| -%>
-        <%= image_submit_tag("silk/flag_orange.png", :alt => "Mark as spam") %>
+      <% form_for(:comment, comment, :url => mark_as_spam_admin_comment_path(comment), :html => {:class => 'spam-item spam', :method => :post}) do |form| -%>
+        <%= image_submit_tag(comment.spam? ? "silk/flag_grey.png" : "silk/flag_orange.png", :alt => "Mark as spam", :disabled => comment.spam?) %>
       <% end -%>
-    <% end -%>  
   </td>
   <td>
     <%= link_to(image_tag('silk/pencil.png', :alt => 'edit'), admin_comment_path(comment)) %>

@@ -33,12 +33,24 @@ class Admin::CommentsController < Admin::BaseController
 
   def mark_as_spam
     @comment.send_later(:report_as_spam)
-    redirect_to :back 
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { render :json => {
+        :undo_message => 'Marked comment as spam',
+        :comment      => @comment
+      }}
+    end
   end
 
   def mark_as_ham
     @comment.send_later(:report_as_ham)
-    redirect_to :back
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.json { render :json => {
+        :undo_message => 'Marked comment as ham',
+        :comment      => @comment
+      }}
+    end
   end
 
   def destroy

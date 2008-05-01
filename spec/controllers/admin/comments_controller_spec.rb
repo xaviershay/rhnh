@@ -160,6 +160,35 @@ describe Admin::CommentsController do
     end
   end
 
+  describe 'handling POST to mark_as_spam, JSON request' do
+    before(:each) do
+      @comment = Comment.new
+      @comment.stub!(:send_later)
+      Comment.stub!(:find).and_return(@comment)
+    end
+
+    def do_post
+      session[:logged_in] = true
+      post :mark_as_spam, :id => '6', :format => 'json'
+    end
+
+    it 'finds comment by id' do
+      Comment.should_receive(:find).with('6').and_return(@comment)
+      do_post
+    end
+
+    it 'marks comment as spam' do
+      @comment.should_receive(:send_later).with(:report_as_spam)
+      do_post
+    end
+
+    it 'renders comment as JSON' do
+      do_post
+      response.should have_text(/#{Regexp.escape(@comment.to_json)}/)
+    end
+  end
+      
+
   describe 'handling POST to mark_as_ham' do
     before(:each) do
       @comment = Comment.new
@@ -187,6 +216,34 @@ describe Admin::CommentsController do
       do_post
       response.should be_redirect
       response.should redirect_to("/bogus")
+    end
+  end
+
+  describe 'handling POST to mark_as_ham, JSON request' do
+    before(:each) do
+      @comment = Comment.new
+      @comment.stub!(:send_later)
+      Comment.stub!(:find).and_return(@comment)
+    end
+
+    def do_post
+      session[:logged_in] = true
+      post :mark_as_ham, :id => '6', :format => 'json'
+    end
+
+    it 'finds comment by id' do
+      Comment.should_receive(:find).with('6').and_return(@comment)
+      do_post
+    end
+
+    it 'marks comment as ham' do
+      @comment.should_receive(:send_later).with(:report_as_ham)
+      do_post
+    end
+
+    it 'renders comment as JSON' do
+      do_post
+      response.should have_text(/#{Regexp.escape(@comment.to_json)}/)
     end
   end
 
