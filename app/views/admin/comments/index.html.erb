@@ -4,7 +4,7 @@
 <% end -%>
 
 <h1>Comments</h1>
-<p><%= button_to("Delete all spam comments (#{Comment.count_spam})", spam_admin_comments_path, :method => :delete) %></p>
+<p><%= button_to("Delete all spam comments (#{Comment.count_spam})", spam_admin_comments_path, :method => :delete) if Comment.count_spam > 0 %></p>
 <table cellspacing="0" cellpadding="0">
   <thead>
     <tr>
