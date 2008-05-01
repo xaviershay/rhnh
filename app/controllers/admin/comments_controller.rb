@@ -10,7 +10,8 @@ class Admin::CommentsController < Admin::BaseController
   end
 
   def spam
-    Comment.find_spam(:include => :post).each(&:destroy)
+    undo_item = Comment.destroy_spam_with_undo
+    flash[:notice] = undo_item.description
     redirect_to :back
   end
   

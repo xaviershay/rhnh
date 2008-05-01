@@ -82,6 +82,14 @@ class Comment < ActiveRecord::Base
       find(:all, spam_conditions.merge(args))
     end
 
+    def destroy_spam_with_undo
+      comments = find_spam(:include => :post)
+      transaction do
+        comments.each(&:destroy)
+        return DeleteCommentsUndo.create_undo(comments)
+      end
+    end
+
     def count_spam
       count(:all, spam_conditions)
     end

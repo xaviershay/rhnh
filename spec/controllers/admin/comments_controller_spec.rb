@@ -249,11 +249,7 @@ describe Admin::CommentsController do
 
   describe 'handling DELETE to spam' do
     before(:each) do
-      @comments = [mock_model(Comment), mock_model(Comment)]
-      @comments.each do |comment|
-        comment.stub!(:destroy)
-      end
-      Comment.stub!(:find_spam).and_return(@comments)
+      Comment.stub!(:destroy_spam_with_undo).and_return(stub('undo_item', :description => 'hello'))
     end
 
     def do_delete
@@ -262,13 +258,15 @@ describe Admin::CommentsController do
       delete :spam
     end
 
-    it 'destroys each spam comment' do
-      @comments.each do |comment|
-        comment.should_receive(:destroy)
-      end
+    it 'destroys each spam comment with undo' do
+      Comment.should_receive(:destroy_spam_with_undo).and_return(stub('undo_item', :description => 'hello'))
       do_delete
     end
 
+    it 'places a notice in the flash' do
+      do_delete
+      flash[:notice].should_not be_nil
+    end
     it 'redirects back' do
       do_delete
       response.should be_redirect
