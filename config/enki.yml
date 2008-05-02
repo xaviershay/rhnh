@@ -7,6 +7,7 @@ author:
   open_id:
     - http://rhnh.net/
     - https://xaviershay.myid.net/
+    - https://xaviershay.myopenid.com/
 
 # Delete the following section if your site will not be acting as an OpenID delegate
 open_id_delegation:
