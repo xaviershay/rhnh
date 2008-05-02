@@ -75,7 +75,11 @@ class Comment < ActiveRecord::Base
 
   class << self
     def spam_conditions(spam = true)
-      {:conditions => ['comments.spam = ?', spam]}
+      if spam
+        {:conditions => ['comments.spam = ?', true]}
+      else  
+        {:conditions => ['comments.spam = ? AND comments.spaminess IS NOT NULL', false]}
+      end
     end
 
     def find_spam(args = {})

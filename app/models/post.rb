@@ -11,9 +11,7 @@ class Post < ActiveRecord::Base
     if options.empty?
       comments.reject {|comment| comment.spam? || comment.spaminess.nil?}
     else
-      comments.find(:all, {
-        :conditions => ['spam = ? AND spaminess IS NOT NULL', false]
-      }.merge(options))
+      comments.find(:all, Comment.spam_conditions(false).merge(options))
     end
   end
 
