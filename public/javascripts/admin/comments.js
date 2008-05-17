@@ -7,6 +7,7 @@ function spamBehaviour(enableAlternateFunc) {
         xhr.setRequestHeader("Accept", "application/json");
       },
       dataType: 'json',
+      data: {},
       success: function(msg){
         display = msg.undo_message
         if (msg.undo_path)
