@@ -3,6 +3,8 @@ class Post < ActiveRecord::Base
 
   acts_as_defensio_article :validate_key => false
   acts_as_taggable
+  
+  has_many :searchable_tags, :through => :taggings, :source => :tag,  :conditions => "tags.name NOT IN ('Ruby', 'Code', 'Life')"
 
   include DefensioArticle
 
@@ -114,5 +116,13 @@ class Post < ActiveRecord::Base
   def tag_list=(value)
     value = value.join(", ") if value.respond_to?(:join)
     super(value)
+  end
+
+  define_index do
+    indexes title
+    indexes body
+    indexes searchable_tags(:name), :as => :tag_list
+
+    has tags(:id), :as => :tags
   end
 end
