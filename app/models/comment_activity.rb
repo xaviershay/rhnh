@@ -16,10 +16,10 @@ class CommentActivity
   class << self
     def find_recent
       Post.find(:all, {
-        :select     => 'distinct posts.*',
-        :joins      => 'INNER JOIN comments ON comments.post_id = posts.id',
-        :order      => 'comments.created_at DESC',
-        :limit      => 5
+        :select => 'distinct posts.*, comments.created_at',
+        :joins  => 'INNER JOIN comments ON comments.post_id = posts.id',
+        :order  => 'comments.created_at DESC',
+        :limit  => 5
       }.merge(Comment.spam_conditions(false))).collect {|post|
         CommentActivity.new(post)
       }
