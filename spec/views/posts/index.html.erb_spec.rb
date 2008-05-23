@@ -7,12 +7,12 @@ describe "/posts/index.html.erb" do
     )
 
     mock_post = mock_model(Post,
-      :title             => "A post",
-      :body_html         => "Posts contents!",
-      :published_at      => 1.year.ago,
-      :slug              => 'a-post',
-      :approved_comments => [mock_model(Comment)],
-      :tags              => [mock_tag]
+      :title                   => "A post",
+      :body_html               => "Posts contents!",
+      :published_at            => 1.year.ago,
+      :slug                    => 'a-post',
+      :approved_comments_count => 1,
+      :tags                    => [mock_tag]
     )
 
     assigns[:posts] = [mock_post, mock_post]

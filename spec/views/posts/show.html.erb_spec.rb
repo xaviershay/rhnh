@@ -17,13 +17,14 @@ describe "/posts/show.html.erb" do
     )
 
     @post = mock_model(Post,
-      :title             => "A post",
-      :body_html         => "Posts contents!",
-      :published_at      => 1.year.ago,
-      :slug              => 'a-post',
-      :approved_comments => [mock_comment],
-      :tags              => [mock_tag],
-      :related_posts     => [mock_model(Post, 
+      :title                   => "A post",
+      :body_html               => "Posts contents!",
+      :published_at            => 1.year.ago,
+      :slug                    => 'a-post',
+      :approved_comments       => [mock_comment],
+      :approved_comments_count => 1,
+      :tags                    => [mock_tag],
+      :related_posts           => [mock_model(Post,
         :title        => 'Hello',
         :slug         => 'hello',
         :published_at => 1.year.ago.utc

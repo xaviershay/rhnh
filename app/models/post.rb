@@ -11,9 +11,9 @@ class Post < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   def approved_comments(options = {})
     if options.empty?
-      comments.reject {|comment| comment.spam? || comment.spaminess.nil?}
+      comments.reject {|comment| comment.spam? }
     else
-      comments.find(:all, Comment.spam_conditions(false).merge(options))
+      comments.find(:all, {:conditions => ['comments.spam = ?', false]}.merge(options))
     end
   end
 
