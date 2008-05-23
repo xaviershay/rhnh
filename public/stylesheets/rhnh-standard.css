@@ -453,35 +453,6 @@ hr
 
 /* Syntax */
 
-
-/* TOC */
-fieldset.toc
-{
-  float: right; 
-  border: dotted 1px black; 
-  background-color: #fafafa;
-  padding: 10px;
-  margin-left: 5px;
-}
-
-.toc legend
-{
-  font-weight: bold;
-}
-
-.toc ol
-{
-  margin: 0px;
-  padding-left: 0px;
-  list-style-position: inside;
-}
-
-.toc ol ol
-{
-  list-style-type: lower-alpha;
-  padding-left: 15px;
-}
-
 pre.ruby .keyword { color: #c41f1f; }
 pre.ruby .constant { color: #961818; }
 pre.ruby .comment { color: #f37e00; }
