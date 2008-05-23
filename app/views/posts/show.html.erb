@@ -13,6 +13,18 @@
   </li>
   <% end -%>
 </ol>    
+<div class="related">
+  <% if @post.related_posts.empty? -%>
+    <p>Hungry for more? Head on over to the <%= link_to("archives", archives_path) %>.</p>
+  <% else -%>
+    <p>Hungry for more? Try these <strong>related posts</strong>, or find more in the <%= link_to("archives", archives_path) %>.</p>
+    <ul>
+      <% @post.related_posts.each do |post| -%>
+        <li><%= link_to(h(post.title), post_path(post)) %></li>
+      <% end -%>  
+    </ul>  
+  <% end -%>  
+</div>
 <h2>Post a comment</h2>
   <% unless @comment.errors.empty? -%>
   <div class="errors">

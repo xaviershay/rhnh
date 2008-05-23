@@ -151,6 +151,18 @@ describe Post, '#denormalize_comments_count!' do
   end
 end
 
+describe Post, '#related_posts' do
+  it 'returns first 3 related posts, excluding the post' do
+    post = Post.new
+    post.stub!(:tags).and_return([
+      mock_model(Tag, :name => 'robot'),
+      mock_model(Tag, :name => 'heart')
+    ])
+    Post.should_receive(:search).with(:limit => 4, :conditions => {:tag_list => 'robot|heart'}).and_return([post, 1, 2, 3, 4]) 
+    post.related_posts.should == [1, 2, 3]
+  end
+end
+
 describe Post, 'validations' do
   def valid_post_attributes
     {

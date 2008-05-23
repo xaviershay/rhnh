@@ -17,6 +17,10 @@ class Post < ActiveRecord::Base
     end
   end
 
+  def related_posts
+    Post.search(:limit => 4, :conditions => {:tag_list => tag_list.join("|")}).reject {|x| x == self }.first(3)
+  end
+
   before_validation :generate_slug
   before_validation :set_dates
   before_save :apply_filter

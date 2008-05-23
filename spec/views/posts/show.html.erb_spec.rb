@@ -22,7 +22,12 @@ describe "/posts/show.html.erb" do
       :published_at      => 1.year.ago,
       :slug              => 'a-post',
       :approved_comments => [mock_comment],
-      :tags              => [mock_tag]
+      :tags              => [mock_tag],
+      :related_posts     => [mock_model(Post, 
+        :title        => 'Hello',
+        :slug         => 'hello',
+        :published_at => 1.year.ago.utc
+      )]
     )
     assigns[:post]    = @post
     assigns[:comment] = Comment.new

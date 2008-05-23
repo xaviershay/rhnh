@@ -433,6 +433,23 @@ hr
   overflow: auto;
 }
 
+/* Post */
+
+.related {
+  background-color: #f8f8f8;
+  border: 1px solid silver;
+  padding: 5px;
+  padding-left: 10px;
+} 
+
+.related ul, .related p {
+  margin: 0px;
+  padding: 0px;
+}
+
+.related ul {
+  margin-left: 15px;
+}
 
 /* Syntax */
 
