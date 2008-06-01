@@ -70,12 +70,11 @@ xmlns:svg="http://www.w3.org/2000/svg"
           <% end -%>
         </ul>
       <% end -%>
-      <form method="get" id="sform" action="http://www.google.com/search">
+      <form method="get" id="sform" action="/search">
         <div>
           <h2><label for="q">Search</label></h2>
 
-          <input type="text" id="q" value="" name="q" />
-          <input type="hidden" name="sitesearch" value="<%= config[:url] %>" />
+          <input type="text" id="q" value="<%= @search_term %>" name="q" />
         </div>
       </form>
     </div>    

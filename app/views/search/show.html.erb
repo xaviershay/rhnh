@@ -1,0 +1,11 @@
+<h2>Search for &ldquo;<%= @search_term %>&rdquo;</h2>
+<% if @posts.empty? -%>
+  <p>Could not find any posts maching that term. Please try another or browse the <%= link_to("archives", archives_path) %>.</p>
+<% else -%>  
+  <ul>
+  <% @posts.each do |post| %>
+    <li><%= link_to(h(post.title), post_path(post)) %></li>
+  <% end -%>
+  </ul>
+  <p>Not what you wanted? Try another search or browse the <%= link_to("archives", archives_path) %>.</p>
+<% end -%>  
