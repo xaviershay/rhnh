@@ -11,5 +11,5 @@ author:
 
 # Delete the following section if your site will not be acting as an OpenID delegate
 open_id_delegation:
-  server:   http://server.myid.net/server
-  delegate: http://xaviershay.myid.net/
+  server:   https://server.myopenid.com/server
+  delegate: https://xaviershay.myopenid.com/
