@@ -4,8 +4,8 @@
 
     <Service priority="1">
       <Type>http://openid.net/signon/1.0</Type>
-      <URI>https://server.myid.net/server</URI>
-      <openid:Delegate>https://xaviershay.myid.net/</openid:Delegate>
+      <URI>https://server.myopenid.com/server</URI>
+      <openid:Delegate>https://xaviershay.myopenid.com/</openid:Delegate>
     </Service>
 
   </XRD>
