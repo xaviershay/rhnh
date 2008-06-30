@@ -4,7 +4,7 @@
 
     <Service priority="1">
       <Type>http://openid.net/signon/1.0</Type>
-      <URI>https://server.myopenid.com/server</URI>
+      <URI>https://www.myopenid.com/server</URI>
       <openid:Delegate>https://xaviershay.myopenid.com/</openid:Delegate>
     </Service>
 
