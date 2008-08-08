@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new((session[:pending_comment] || params[:comment] || {}).reject {|key, value| !Comment.protected_attribute?(key) })
     @comment.post = @post
-    @comment.author_ip      = request.env['REMOTE_ADDR'].to_s
+    @comment.author_ip      = request.env['REMOTE_ADDR'].to_s.split(', ').first
     @comment.author_referer = request.env['HTTP_REFERER'].to_s
 
     session[:pending_comment] = nil
