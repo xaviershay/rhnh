@@ -28,7 +28,9 @@ namespace :deploy do
     run "sleep 2"
   end
 
-  task :restart => [:stop, :start]
+  task :restart do
+    run "mongrel_rails cluster::restart -C #{mongrel_conf}"
+  end
 
   task :after_update_code do
     run "cp -f #{shared_path}/config/database.yml #{release_path}/config"
