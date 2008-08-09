@@ -13,9 +13,10 @@ module ApplicationHelper
   
   def format_comment_error(error)
     {
-      'body'   => 'Please comment',
-      'author' => 'Please provide your name or OpenID identity URL',
-      'base'   => error.last
-    }[error.first]
+      'body'       => 'Please comment',
+      'author'     => 'Please provide your name or OpenID identity URL',
+      'human_test' => 'Please learn good math',
+      'base'       => error.last
+    }[error.first] || raise("Unknown error description for: #{error.first}")
   end
 end

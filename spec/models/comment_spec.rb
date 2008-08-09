@@ -3,9 +3,10 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Comment do
   def valid_comment_attributes(extra = {})
     {
-      :author => 'Don Alias',
-      :body   => 'This is a comment',
-      :post   => Post.new
+      :author     => 'Don Alias',
+      :body       => 'This is a comment',
+      :human_test => 4,
+      :post       => Post.new
     }.merge(extra)
   end
 

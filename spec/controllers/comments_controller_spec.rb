@@ -97,8 +97,9 @@ describe CommentsController, 'handling commenting' do
       mock_post!
 
       @comment = {
-        'author' => 'http://enkiblog.com',
-        'body'   => 'This is a comment'
+        'author'     => 'http://enkiblog.com',
+        'body'       => 'This is a comment',
+        'human_test' => '4'
       }
 
       @controller.stub!(:authenticate_with_open_id).and_return(true)
@@ -125,8 +126,9 @@ describe CommentsController, 'handling commenting' do
 
       stub_open_id_authenticate('http://enkiblog.com', :missing, false)
       post :index, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => {
-        'author' => 'http://enkiblog.com',
-        'body'   => 'This is a comment'
+        'author'     => 'http://enkiblog.com',
+        'body'       => 'This is a comment',
+        'human_test' => '4'
       }
     end
 
@@ -143,8 +145,9 @@ describe CommentsController, 'handling commenting' do
 
       stub_open_id_authenticate('http://enkiblog.com', :canceled, false)
       post :index, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => {
-        'author' => 'http://enkiblog.com',
-        'body'   => 'This is a comment'
+        'author'     => 'http://enkiblog.com',
+        'body'       => 'This is a comment',
+        'human_test' => '4'
       }
     end
 
@@ -178,8 +181,9 @@ describe CommentsController, 'handling commenting' do
       mock_post!
 
       session[:pending_comment] = {
-        :author => 'http://enkiblog.com',
-        :body   => 'This is a comment'
+        'author'     => 'http://enkiblog.com',
+        'body'       => 'This is a comment',
+        'human_test' => '4'
       }
 
       stub_open_id_authenticate('http://enkiblog.com', :successful, false)
@@ -210,8 +214,9 @@ describe CommentsController, 'handling commenting' do
       mock_post!
 
       post :index, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => {
-        :author => 'Don Alias',
-        :body   => 'This is a comment',
+        :author     => 'Don Alias',
+        :body       => 'This is a comment',
+        :human_test => '4',
 
         # Attributes you are not allowed to set
         :author_url              => 'http://www.enkiblog.com',
@@ -229,6 +234,10 @@ describe CommentsController, 'handling commenting' do
 
     it "allows setting of body" do
       assigns(:comment).body.should == 'This is a comment'
+    end
+
+    it "allows setting of human test" do
+      assigns(:comment).human_test.should == '4'
     end
 
     it "forbids setting of author_url" do
@@ -258,8 +267,9 @@ describe CommentsController, 'with an AJAX request to new' do
     Comment.should_receive(:build_for_preview).and_return(@comment = mock_model(Comment))
 
     xhr :get, :new, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => {
-      :author => 'Don Alias',
-      :body   => 'A comment'
+      'author'     => 'http://enkiblog.com',
+      'body'       => 'This is a comment',
+      'human_test' => '4'
     }
   end
 

@@ -8,6 +8,8 @@ class Comment < ActiveRecord::Base
   attr_accessor :openid_error
   attr_accessor :openid_valid
 
+  attr_accessor :human_test
+
   belongs_to :post
 
   before_save   :apply_filter
@@ -20,10 +22,10 @@ class Comment < ActiveRecord::Base
 
   validates_presence_of :post
 
-  # validate :open_id_thing
   def validate
     super 
     errors.add(:base, openid_error) unless openid_error.blank?
+    errors.add(:human_test, "wrong") unless !new_record? || human_test.to_i == 4
   end
 
   def apply_filter
@@ -111,7 +113,7 @@ class Comment < ActiveRecord::Base
     end
 
     def protected_attribute?(attribute)
-      [:author, :body].include?(attribute.to_sym)
+      [:author, :body, :human_test].include?(attribute.to_sym)
     end
 
     def find_recent(args = {})
