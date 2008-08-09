@@ -14,10 +14,6 @@ class DeletePostUndo < UndoItem
     post
   end
 
-  def loaded_data
-    @loaded_data ||= YAML.load(data)
-  end
-
   def description
     "Deleted post '#{loaded_data[:post]["title"]}'"
   end

@@ -10,10 +10,6 @@ class DeletePageUndo < UndoItem
     page
   end
 
-  def loaded_data
-    @loaded_data ||= YAML.load(data)
-  end
-
   def description
     "Deleted page '#{loaded_data['title']}'"
   end

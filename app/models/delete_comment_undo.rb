@@ -11,10 +11,6 @@ class DeleteCommentUndo < UndoItem
     comment
   end
 
-  def loaded_data
-    @loaded_data ||= YAML.load(data)
-  end
-
   def description
     "Deleted comment by '#{loaded_data['author']}'"
   end
