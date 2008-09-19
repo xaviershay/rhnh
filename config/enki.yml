@@ -1,3 +1,5 @@
+# Configuration options for your blog - customise to taste
+# This file contains no secret information, so can be stored in source control (unlike database.yml)
 title: "Xavier Shay's Blog"
 url:   http://rhnh.net
 feed:  http://feeds.feedburner.com/rhnh
@@ -9,7 +11,8 @@ author:
     - https://xaviershay.myid.net/
     - https://xaviershay.myopenid.com/
 
-# Delete the following section if your site will not be acting as an OpenID delegate
+# Delete the following section if your site will not be acting as an OpenID delegate (http://wiki.openid.net/Delegation)
+# If you're deploying with mongrel, make sure you read http://rhnh.net/2008/04/13/nginx-openid-delegation-and-yadis
 open_id_delegation:
   server:   https://server.myopenid.com/server
   delegate: https://xaviershay.myopenid.com/

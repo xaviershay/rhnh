@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def config
-    @@config = Enki::Config.new("config/enki.yml")
+    @@config = Enki::Config.default
   end
   helper_method :config
 end
