@@ -20,16 +20,13 @@ role :db,  "rhnh.net", :primary => true
 
 namespace :deploy do
   task :start do
-    run "mongrel_rails cluster::start -C #{mongrel_conf}"
   end
 
   task :stop do
-    run "mongrel_rails cluster::stop -C #{mongrel_conf}"
-    run "sleep 2"
   end
 
   task :restart do
-    run "mongrel_rails cluster::restart -C #{mongrel_conf}"
+    run "touch #{current_path}/tmp/restart.txt"
   end
 
   task :after_update_code do
