@@ -9,13 +9,13 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :comments, 
       :collection => {:spam => :delete},
       :member     => {:mark_as_spam => :post, :mark_as_ham => :post}
+    admin.resources :posts, :new => {:preview => :post}
+    admin.resources :pages, :new => {:preview => :post}
     admin.resources :tags
     admin.resources :undo_items, :member => {:undo => :post}
-
-    admin.resource :api, :controller => 'api'
   end
 
-  map.connect '/admin/proxy/:id', :controller => 'admin/proxy', :requirements => { :id => /.*/ }
+  map.admin_health '/admin/health/:action', :controller => 'admin/health', :action => 'index'
 
   map.connect '/admin', :controller => 'admin/dashboard', :action => 'show'
   map.connect '/admin/api', :controller => 'admin/api', :action => 'index'

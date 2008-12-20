@@ -21,18 +21,16 @@ class Post < ActiveRecord::Base
     Post.search(:limit => 4, :conditions => {:tag_list => tag_list.join("|")}).reject {|x| x == self }.first(3)
   end
 
-  before_validation :generate_slug
-  before_validation :set_dates
-  before_save :apply_filter
+  before_validation       :generate_slug
+  before_validation       :set_dates
+  before_save             :apply_filter
 
-  validates_presence_of :title
-  validates_presence_of :slug
-  validates_presence_of :body
+  validates_presence_of   :title, :slug, :body
 
-  validate :validate_published_at_natural
+  validate                :validate_published_at_natural
 
   def validate_published_at_natural
-    errors.add("published_at_natural", "Unable to parse time") if published_at.nil?
+    errors.add("published_at_natural", "Unable to parse time") unless published?
   end
 
   attr_accessor :minor_edit
@@ -43,6 +41,10 @@ class Post < ActiveRecord::Base
   def minor_edit?
     self.minor_edit == "1"
   end
+  
+  def published?
+    published_at?
+  end
 
   attr_accessor :published_at_natural
   def published_at_natural
@@ -50,6 +52,17 @@ class Post < ActiveRecord::Base
   end
 
   class << self
+    def build_for_preview(params)
+      post = Post.new(params)
+      post.generate_slug
+      post.set_dates
+      post.apply_filter
+      TagList.from(params[:tag_list]).each do |tag|
+        post.tags << Tag.new(:name => tag)
+      end
+      post
+    end
+
     def find_recent(options = {})
       tag = options.delete(:tag)
       options = {

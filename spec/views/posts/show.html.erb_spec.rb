@@ -10,9 +10,16 @@ describe "/posts/show.html.erb" do
 
     mock_comment = mock_model(Comment,
       :created_at              => 1.month.ago,
-      :author                  => "Don Alias",
-      :author_url              => "http://enkiblog.com",
-      :author_openid_authority => "http://enkiblog.com/server",
+      :author                  => "Don Alias".taint,
+      :author_url              => "http://enkiblog.com".taint,
+      :author_openid_authority => "http://enkiblog.com/server".taint,
+      :body_html               => "A comment"
+    )
+
+    mock_comment2 = mock_model(Comment,
+      :created_at              => 1.month.ago,
+      :author                  => "Don Alias".taint,
+      :author_url              => ''.taint,
       :body_html               => "A comment"
     )
 
@@ -21,8 +28,8 @@ describe "/posts/show.html.erb" do
       :body_html               => "Posts contents!",
       :published_at            => 1.year.ago,
       :slug                    => 'a-post',
-      :approved_comments       => [mock_comment],
-      :approved_comments_count => 1,
+      :approved_comments       => [mock_comment, mock_comment],
+      :approved_comments_count => 2,
       :tags                    => [mock_tag],
       :related_posts           => [mock_model(Post,
         :title        => 'Hello',
