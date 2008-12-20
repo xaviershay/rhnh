@@ -15,7 +15,8 @@ Factory.define(:post) do |a|
 end
 
 Factory.define(:comment) do |a|
-  a.author   'Don Alias'
-  a.body     'I find this article thought provoking'
+  a.author     'Don Alias'
+  a.body       'I find this article thought provoking'
+  a.human_test 4
   a.association :post
 end
