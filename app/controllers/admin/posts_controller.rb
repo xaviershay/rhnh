@@ -55,6 +55,16 @@ class Admin::PostsController < Admin::BaseController
   def new
     @post = Post.new
   end
+  
+  def preview
+    @post = Post.build_for_preview(params[:post])
+
+    respond_to do |format|
+      format.js {
+        render :partial => 'posts/post.html.erb'
+      }
+    end
+  end
 
   def destroy
     undo_item = @post.destroy_with_undo
