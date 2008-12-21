@@ -5,7 +5,7 @@ class DeleteCommentsUndo < UndoItem
       loaded_data.collect do |attributes|
         raise(UndoFailed) if Comment.find_by_id(attributes.delete('id').to_i)
 
-        comment = Comment.create(attributes)
+        comment = Comment.create(attributes.merge(:human_test => 4))
         raise UndoFailed if comment.new_record?
         comment
       end
