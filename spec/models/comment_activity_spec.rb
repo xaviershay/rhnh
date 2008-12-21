@@ -3,10 +3,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe CommentActivity, '#comments' do
   it 'finds the 5 most recent approved comments for the post' do
     ret = [mock_model(Comment)]
-    comments = []
-    comments.should_receive(:find_recent).with(hash_including(:limit => 5)).and_return(ret)
     post = mock_model(Post)
-    post.stub!(:approved_comments).and_return(comments)
+    post.should_receive(:approved_comments).with(hash_including(:limit => 5, :order => 'created_at DESC')).and_return(ret)
     CommentActivity.new(post).comments.should == ret
   end
 
