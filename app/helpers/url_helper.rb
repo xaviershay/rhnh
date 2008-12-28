@@ -23,6 +23,7 @@ module UrlHelper
     suffix = options[:anchor] ? "##{options[:anchor]}" : ""
     path = post.published_at.strftime("/%Y/%m/%d/") + post.slug + suffix
     path = URI.join(config[:url], path) if options[:only_path] == false
+    path = [path, lambda {|x| x.blank? ? nil : x }[options.except(:only_path).to_query]].compact.join('?')
     path.untaint
   end
 

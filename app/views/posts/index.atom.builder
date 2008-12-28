@@ -13,7 +13,7 @@ atom_feed(
   end
 
   @posts.each do |post|
-   feed.entry(post, :url => post_path(post, :only_path => false), :published => post.published_at, :updated => post.edited_at) do |entry|
+   feed.entry(post, :url => post_path(post, :only_path => false, :utm_medium => 'feed', :utm_source => 'feed', :utm_campaign => 'eyeballs'), :published => post.published_at, :updated => post.edited_at) do |entry|
       entry.title   post.title
       entry.content post.body_html, :type => 'html'
     end
