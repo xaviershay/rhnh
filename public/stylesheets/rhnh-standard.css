@@ -174,11 +174,6 @@ a:hover
   text-decoration: underline;
 }
 
-img
-{
-  border: solid 1px black;
-}
-
 /* Two columns */
 #navigation 
 {
@@ -449,6 +444,7 @@ hr
 
 .related ul {
   margin-left: 15px;
+  margin-bottom: 15px;
 }
 
 /* Syntax */
