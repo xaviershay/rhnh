@@ -20,7 +20,7 @@
     <p>Hungry for more? Try these <strong>related posts</strong>, or find more in the <%= link_to("archives", archives_path) %>.</p>
     <ul>
       <% @post.related_posts.each do |post| -%>
-        <li><%= link_to(h(post.title), post_path(post)) %></li>
+        <li><%= link_to(h(post.title), post_path(post, :utm_source => 'website', :utm_medium => 'web', :utm_campaign => 'stickiness')) %></li>
       <% end -%>  
     </ul>  
   <% end -%>  
