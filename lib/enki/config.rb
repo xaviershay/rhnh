@@ -1,6 +1,6 @@
 module Enki
   class Config < SimpleDelegator
-    def initialize(file_name)
+    def initialize(file_name = Enki::Config.default_location)
       super(symbolize_keys(YAML::load(IO.read(file_name))))
     end
 
