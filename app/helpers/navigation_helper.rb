@@ -2,14 +2,14 @@ module NavigationHelper
   def page_links_for_navigation
     link = Struct.new(:name, :url)
     [link.new("Home", posts_path),
-     link.new("Archives", archives_path)] + 
+     link.new("Archives", archives_path)] +
       Page.find(:all, :order => 'title').collect {|page| link.new(page.title, page_path(page))} +
-    [link.new("Projects", "http://github.com/xaviershay")]  
+    [link.new("Projects", "http://github.com/xaviershay")]
   end
 
   def category_links_for_navigation
     link = Struct.new(:name, :url)
-    ["Code", "Ruby", "Life", "Food", "Ethics"].collect {|label| link.new(label, posts_path(:tag => label)) }
+    ["Code", "Food", "Ethics"].collect {|label| link.new(label, posts_path(:tag => label)) }
   end
 
   def class_for_tab(tab_name, index)
