@@ -1,18 +1,18 @@
-body 
-{ 
+body
+{
   color: black;
-  
+
   font: normal 12px verdana, arial, helvetica, sans-serif;
   line-height: 1.5;
   padding: 0px;
   margin: 0px;
 }
 
-#page_container 
+#page_container
 {
-  width: 70em; 
+  width: 70em;
   min-height: 400px;
-  
+
   border: solid 1px #aaaaaa;
   margin-top: 5px;
   margin-left: auto;
@@ -24,7 +24,7 @@ body
   padding-top: 10em;
 }
 
-label, input 
+label, input
 {
   display: block;
   margin-left: auto;

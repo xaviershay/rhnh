@@ -10,11 +10,11 @@ html
   background-color: #cccccc;
 }
 
-body 
-{ 
+body
+{
   color: black;
   background-color: #cccccc;
-  
+
   font: normal 12px verdana, arial, helvetica, sans-serif;
   line-height: 1.5;
 }
@@ -44,12 +44,12 @@ body
 }
 #page_container
 {
-  width: 70em; 
-  border: solid 6px black; 
- 
+  width: 70em;
+  border: solid 6px black;
+
   position: absolute;
   min-height: 600px;
-  
+
   padding: 5px;
   color: black;
 }
@@ -62,7 +62,7 @@ body
 
   font-size: 8pt;
   padding: 5px;
-  
+
   color: gray;
 }
 
@@ -129,7 +129,7 @@ p.subtitle
 }
 
 /* Text */
-p 
+p
 {
   padding: 0px;
   margin-top: 0.5em;
@@ -156,18 +156,18 @@ strong
   content: url("/images/openid_icon.png");
 }
 */
-a 
+a
 {
   color: #c41f1f;
-  
-  text-decoration: none;    
+
+  text-decoration: none;
 }
-  
+
 a:hover
 {
-  text-decoration: underline;    
+  text-decoration: underline;
 }
-  
+
 #footer a
 {
   color: gray;
@@ -175,11 +175,11 @@ a:hover
 }
 
 /* Two columns */
-#navigation 
+#navigation
 {
   position: absolute;
   width: 8em;
-  top: 216px; 
+  top: 216px;
   left: 0px;
 
   border-right: solid 6px black;
@@ -207,12 +207,12 @@ a:hover
 #navigation ul
 {
   padding-left: 10px;
-  
+
   margin-left: 0px;
   margin-top: 0px;
   list-style: none;
 }
-  
+
 #navigation ul li
 {
   padding-left: 0px;
@@ -237,11 +237,11 @@ a:hover
   margin-bottom: 1em;
 }
 
-#main 
+#main
 {
   margin-left: 9em;
 
-  
+
   padding-right: 15px;
   padding-left: 15px;
   padding-top: 15px;
@@ -251,10 +251,10 @@ a:hover
 div.meta
 {
  margin-top: 1em;
- margin-bottom: 3em; 
+ margin-bottom: 3em;
 }
-/* Formatting */   
-#introduction 
+/* Formatting */
+#introduction
 {
   font-style: italic;
   width: 400px;
@@ -269,9 +269,9 @@ div.meta
 {
   color: #c41f1f;
 }
-  
+
 /* Home */
-.meta 
+.meta
 {
 
 }
@@ -302,7 +302,7 @@ div.meta
 {
   display: inline;
 }
- 
+
 .meta ul li:after
 {
   content: " | ";
@@ -318,7 +318,7 @@ h2
   margin-bottom: 0px;
 }
 
-.separator 
+.separator
 {
   height: 1px;
   margin-top:5px;
@@ -373,7 +373,7 @@ th {
 {
   width: 130px;
  }
-div.comments div.container, div.comments div.container_alt 
+div.comments div.container, div.comments div.container_alt
 {
   clear: both;
   margin-bottom: 5px;
@@ -389,7 +389,7 @@ div.comments div.meta
   min-height: 0px;
   padding: 0px
 }
-  
+
 div.comments div.separator
 {
   height: 10px;
@@ -409,7 +409,7 @@ span.error
 {
   font-weight: bold;
   }
-  
+
 hr
 {
   border-top: dotted 1px black;
@@ -435,7 +435,7 @@ hr
   border: 1px solid silver;
   padding: 5px;
   padding-left: 10px;
-} 
+}
 
 .related ul, .related p {
   margin: 0px;

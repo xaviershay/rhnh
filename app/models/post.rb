@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
 
   acts_as_defensio_article :validate_key => false
   acts_as_taggable
-  
+
   has_many :searchable_tags, :through => :taggings, :source => :tag,  :conditions => "tags.name NOT IN ('Ruby', 'Code', 'Life')"
 
   include DefensioArticle
@@ -41,7 +41,7 @@ class Post < ActiveRecord::Base
   def minor_edit?
     self.minor_edit == "1"
   end
-  
+
   def published?
     published_at?
   end
@@ -82,7 +82,7 @@ class Post < ActiveRecord::Base
         day = Time.parse([year, month, day].collect(&:to_i).join("-")).midnight
         post = find_all_by_slug(slug, options).detect do |post|
           post.published_at.midnight == day
-        end 
+        end
       rescue ArgumentError # Invalid time
         post = nil
       end

@@ -1,5 +1,5 @@
---- 
-cwd: /home/xavier/app/rhnh-enki/current 
+---
+cwd: /home/xavier/app/rhnh-enki/current
 log_file: log/mongrel.log
 port: "8010"
 environment: production

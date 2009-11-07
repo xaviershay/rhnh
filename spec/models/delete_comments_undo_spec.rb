@@ -9,7 +9,7 @@ describe DeleteCommentsUndo do
   describe '#process!' do
     it 'creates new comments based on the attributes array stored in #data' do
       Comment.stub!(:find_by_id).and_return(nil)
-      
+
       item = DeleteCommentsUndo.new(:data => comments_data)
       item.stub!(:transaction).and_yield
       item.stub!(:destroy)

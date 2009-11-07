@@ -1,6 +1,6 @@
 class Comment < ActiveRecord::Base
   acts_as_defensio_comment :fields => { :content => :body, :article => :post }, :validate_key => false
-    
+
   include DefensioComment
 
   DEFAULT_LIMIT = 15
@@ -18,7 +18,7 @@ class Comment < ActiveRecord::Base
   validates_presence_of :author, :body, :post
 
   def validate
-    super 
+    super
     errors.add(:base, openid_error) unless openid_error.blank?
     errors.add(:human_test, "wrong") unless !new_record? || human_test.to_i == 4
   end
@@ -26,7 +26,7 @@ class Comment < ActiveRecord::Base
   def apply_filter
     self.body_html = Lesstile.format_as_xhtml(self.body, :code_formatter => Lesstile::CodeRayFormatter)
   end
-  
+
   def blank_openid_fields
     self.author_url = ""
     self.author_email = ""
@@ -47,7 +47,7 @@ class Comment < ActiveRecord::Base
   def approved?
     true
   end
- 
+
   def denormalize
     self.post.denormalize_comments_count!
   end
@@ -70,7 +70,7 @@ class Comment < ActiveRecord::Base
     def spam_conditions(spam = true)
       if spam
         {:conditions => ['comments.spam = ?', true]}
-      else  
+      else
         {:conditions => ['comments.spam = ? AND comments.spaminess IS NOT NULL', false]}
       end
     end

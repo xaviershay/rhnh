@@ -14,7 +14,7 @@ describe Admin::CommentsController do
       route_for(:controller => "admin/comments", :action => "spam").should == "/admin/comments/spam"
     end
   end
-  
+
   describe "route recognition" do
    it 'generates mark_as_ham params' do
     params_from(:post, '/admin/comments/1/mark_as_ham').should == {:controller => 'admin/comments', :action => 'mark_as_ham', :id => '1'}

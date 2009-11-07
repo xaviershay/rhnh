@@ -21,7 +21,7 @@ describe CommentsController, 'with an atom GET to #index' do
 
     get :index, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :format => 'atom'
   end
-  
+
   it 'assigns a post' do
     assigns(:post).should_not be_nil
   end
@@ -29,7 +29,7 @@ describe CommentsController, 'with an atom GET to #index' do
   it 'assigns comments' do
     assigns(:comments).should == @mock_comments
   end
-  
+
   it 'render the index template' do
     response.should render_template('comments/index')
   end
@@ -104,7 +104,7 @@ describe CommentsController, 'handling commenting' do
 
       @controller.stub!(:authenticate_with_open_id).and_return(true)
     end
-    
+
     def do_post
       post :index, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => @comment
     end
@@ -222,7 +222,7 @@ describe CommentsController, 'handling commenting' do
       }
     end
 
-    
+
     it "allows setting of author" do
       assigns(:comment).author.should == 'Don Alias'
     end
@@ -244,7 +244,7 @@ describe CommentsController, 'handling commenting' do
     end
 
     it "forbids setting of created_at" do
-      assigns(:comment).created_at.should_not == @created_at 
+      assigns(:comment).created_at.should_not == @created_at
     end
 
     it "forbids setting of updated_at" do

@@ -18,7 +18,7 @@
     <h2 id="page_subtitle">Xavier Shay blogs here</h2>
     <img id="robot-head" alt="A robot that does not have a heart" class="eyecandy" src="/images/robot_head.png" />
 <!--
-    <svg:svg xmlns:svg="http://www.w3.org/2000/svg" version="1.1" id="robot-head" height="200" width="200" viewBox="0 0 400 400"> 
+    <svg:svg xmlns:svg="http://www.w3.org/2000/svg" version="1.1" id="robot-head" height="200" width="200" viewBox="0 0 400 400">
       <svg:g style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
         <svg:path d="M 86.534718,306.88773 C 88.661553,195.25826 72.18885,69.611727 217.84615,66.150129 C 367.86734,56.17503 319.13834,190.2001 322.40896,295.53984"></svg:path>
         <svg:path d="M 16.826186,302.83492 C 122.72876,320.18487 270.32017,290.6888 379.95902,296.3504 C 391.4326,350.21405 391.67856,393.60081 198.3926,390.37586 C 5.8390134,391.69012 22.390062,347.2075 16.826186,302.83492 z "></svg:path>
@@ -36,7 +36,7 @@
     <img src="/images/flower_1.png" alt="A pretty flower" id="flower_1" class="eyecandy" />
 <!--
     <svg:svg
-xmlns:svg="http://www.w3.org/2000/svg" 
+xmlns:svg="http://www.w3.org/2000/svg"
    width="150"
    height="175"
    viewBox="0 0 300 350"
@@ -77,11 +77,11 @@ xmlns:svg="http://www.w3.org/2000/svg"
           <input type="text" id="q" value="<%= @search_term %>" name="q" />
         </div>
       </form>
-    </div>    
+    </div>
     <img src="/images/flower_2.png" alt="Another pretty flower" id="flower_2" class="eyecandy" />
 <!--
   <svg:svg
-xmlns:svg="http://www.w3.org/2000/svg" 
+xmlns:svg="http://www.w3.org/2000/svg"
    width="99"
    height="120"
    viewBox="0 0 330 400"
@@ -94,7 +94,7 @@ xmlns:svg="http://www.w3.org/2000/svg"
   </svg:g>
 </svg:svg>
 -->
-    
+
     <div id="footer"><%= config[:title] %> &#169; <%= config[:author, :name] %>. Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a> and <%= link_to "ATOM", "http://feedvalidator.org/check.cgi?url=#{config[:url]}/posts.atom" %>. Powered by <a href="http://www.enkiblog.com" title="A ruby on rails blogging app for the fashionable developer">Enki</a>.</div>
   </div>
   <% if RAILS_ENV == 'production' -%>

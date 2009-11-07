@@ -22,7 +22,7 @@ function spamBehaviour(enableAlternateFunc) {
     });
     return false;
   }
-}  
+}
 $(document).ready(function() {
   destroyAndUndoBehaviour('comments')();
 

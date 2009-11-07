@@ -5,10 +5,10 @@ class AddDelayedJobsTable < ActiveRecord::Migration
       table.integer :attempts, :default => 0
       table.text :handler
       table.string :last_error
-      table.datetime :run_at                                                                                               
-      table.datetime :locked_until   
-      table.string   :locked_by       
-      table.timestamps    
+      table.datetime :run_at
+      table.datetime :locked_until
+      table.string   :locked_by
+      table.timestamps
     end
   end
 

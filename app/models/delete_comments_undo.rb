@@ -14,7 +14,7 @@ class DeleteCommentsUndo < UndoItem
 
   def description
     count = loaded_data.size
-    "Deleted " + pluralized_comment_description 
+    "Deleted " + pluralized_comment_description
   end
 
   def complete_description

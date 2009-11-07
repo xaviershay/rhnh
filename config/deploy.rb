@@ -7,7 +7,7 @@ set :applicationdir, 'app/rhnh-enki'
 # servers (which is the default), you can specify the actual location
 # via the :deploy_to variable:
 # set :deploy_to, "/var/www/#{application}"
-set :deploy_to, "/home/#{user}/#{applicationdir}" 
+set :deploy_to, "/home/#{user}/#{applicationdir}"
 set :mongrel_conf, "#{current_path}/config/mongrel_cluster.yml"
 
 # If you aren't using Subversion to manage your source code, specify

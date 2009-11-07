@@ -12,7 +12,7 @@
     <%= render :partial => 'comments/comment', :locals => {:comment => comment} %>
   </li>
   <% end -%>
-</ol>    
+</ol>
 <div class="related">
   <% if @post.related_posts.empty? -%>
     <p>Hungry for more? Head on over to the <%= link_to("archives", archives_path) %>.</p>
@@ -21,9 +21,9 @@
     <ul>
       <% @post.related_posts.each do |post| -%>
         <li><%= link_to(h(post.title), post_path(post, :utm_source => 'website', :utm_medium => 'web', :utm_campaign => 'stickiness')) %></li>
-      <% end -%>  
-    </ul>  
-  <% end -%>  
+      <% end -%>
+    </ul>
+  <% end -%>
   <p><%= link_to("Follow me on twitter", "http://twitter.com/xshay") %> for bleeding edge insights. Also I need to convince my Mum that I have friends.</p>
 </div>
 <h2>Post a comment</h2>
@@ -33,10 +33,10 @@
     <ul>
       <% @comment.errors.sort_by(&:first).each do |error| -%>
         <li><%= format_comment_error(error) %></li>
-      <% end -%>  
+      <% end -%>
     </ul>
-  </div>  
-  <% end -%>  
+  </div>
+  <% end -%>
 <% form_for([@post, @comment]) do |form| -%>
   <div>
     <p><%= form.text_field 'author' %><label for="comment_author"><small>Name or <a href="http://openid.net/">OpenID</a> (required)</small></label></p>

@@ -4,8 +4,8 @@ class Admin::CommentsController < Admin::BaseController
   def index
     @comments = Comment.paginate(
       :include => "post",
-      :order => "comments.created_at DESC", 
-      :page => params[:page] 
+      :order => "comments.created_at DESC",
+      :page => params[:page]
     )
   end
 
@@ -14,7 +14,7 @@ class Admin::CommentsController < Admin::BaseController
     flash[:notice] = undo_item.description
     redirect_to :back
   end
-  
+
   def show
     respond_to do |format|
       format.html {
@@ -60,9 +60,9 @@ class Admin::CommentsController < Admin::BaseController
     respond_to do |format|
       format.html do
         flash[:notice] = "Deleted comment by #{@comment.author}"
-        redirect_to :action => 'index' 
+        redirect_to :action => 'index'
       end
-      format.json { 
+      format.json {
         render :json => {
           :undo_path    => undo_admin_undo_item_path(undo_item),
           :undo_message => undo_item.description,

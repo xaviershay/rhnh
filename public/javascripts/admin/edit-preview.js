@@ -1,6 +1,6 @@
 $(document).ready(function() {
   var form = $('form.new_post, form.edit_post, form.new_page, form.edit_page');
-  
+
   if (form.length > 0) {
     var dest = window.location.href;
     if (!dest.match(/\/new$/)) {
@@ -21,7 +21,7 @@ $(document).ready(function() {
           error: function() {
             $('#preview .content').html('<p>Failed to generate preview. Toggle back to edit mode and check that all required fields are filled in and valid.</p>');
           },
-          success: function(r) { 
+          success: function(r) {
             $('#preview .content').html(r);
           }
         });
@@ -33,7 +33,7 @@ $(document).ready(function() {
     }
 
     $(document).keypress(function(e) {
-      if (e.metaKey && (e.which == 101 || e.which == 5)) { 
+      if (e.metaKey && (e.which == 101 || e.which == 5)) {
         toggle_preview();
         e.preventDefault();
       }
