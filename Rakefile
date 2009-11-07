@@ -9,4 +9,6 @@ require 'rake/rdoctask'
 
 require 'tasks/rails'
 
+require 'db2s3/tasks'
+
 task :default => [:spec, :features]
