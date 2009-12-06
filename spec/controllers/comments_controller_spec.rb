@@ -102,7 +102,7 @@ describe CommentsController, 'handling commenting' do
         'human_test' => '4'
       }
 
-      @controller.stub!(:authenticate_with_open_id).and_return(true)
+      @controller.stub!(:authenticate_with_open_id).and_return(nil)
     end
 
     def do_post
@@ -115,7 +115,7 @@ describe CommentsController, 'handling commenting' do
     end
 
     it 'redirects to OpenID authority' do
-      @controller.should_receive(:authenticate_with_open_id).and_return(true)
+      @controller.should_receive(:authenticate_with_open_id).and_return(nil)
       do_post
     end
   end

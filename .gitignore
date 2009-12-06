@@ -1,2 +1,7 @@
+log/**/*
+log
+tmp/**/*
 tmp
 config/mailer.rb
+config/database.yml
+db/schema.rb
