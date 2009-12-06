@@ -5,3 +5,6 @@ tmp
 config/mailer.rb
 config/database.yml
 db/schema.rb
+config/initializers/db2s3.rb
+config/*.sphinx.conf
+db/sphinx

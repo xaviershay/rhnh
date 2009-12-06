@@ -7,24 +7,29 @@ describe CommentActivity, '#comments' do
       :author => 'Don Alias',
       :author_url => "me",
       :author_email => "me@fake.com",
+      :human_test => '4',
+      :author_ip => '',
+      :author_referer => '',
+      :spam => false,
+      :spaminess => '0.5',
       :body   => 'This is a comment',
       :post   => Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")
     }.merge(extra)
   end
-  
+
   context "find recent comments" do
-    before :each do      
+    before :each do
       @comments = []
       (1..10).each do |n|
-        @comments << Comment.create(valid_comment_attributes(:created_at => Time.now - n * (60 * 60 * 24)))
+        @comments << Comment.create!(valid_comment_attributes(:created_at => Time.now - n * (60 * 60 * 24)))
       end
     end
-    
+
     it "should have the comment activity sorted by when they were created" do
-      comment_activity = CommentActivity.find_recent 
+      comment_activity = CommentActivity.find_recent
       comment_activity.first.post.should == @comments.first.post
     end
-    
+
     it do
       comment_activity = CommentActivity.find_recent
       comment_activity.should have_exactly(5).posts
@@ -35,9 +40,9 @@ describe CommentActivity, '#comments' do
       comment_activity = CommentActivity.find_recent
       comment_activity.select{|a| a.post == comment.post}.size.should == 1
     end
-    
+
   end
-    
+
   it 'finds the 5 most recent approved comments for the post' do
     ret = [mock_model(Comment)]
     post = mock_model(Post)

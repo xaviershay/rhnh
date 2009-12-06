@@ -1,4 +1,4 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file,
+# This file is auto-generated from the current state of the database. Instead of editing this file, 
 # please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
@@ -9,21 +9,38 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 11) do
+ActiveRecord::Schema.define(:version => 20081224020432) do
 
   create_table "comments", :force => true do |t|
-    t.integer  "post_id",                 :null => false
-    t.string   "author",                  :null => false
-    t.string   "author_url",              :null => false
-    t.string   "author_email",            :null => false
-    t.text     "body",                    :null => false
-    t.text     "body_html",               :null => false
+    t.integer  "post_id",                           :null => false
+    t.string   "author",                            :null => false
+    t.string   "author_url",                        :null => false
+    t.string   "author_email",                      :null => false
+    t.text     "body",                              :null => false
+    t.text     "body_html",                         :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "spam",           :default => false
+    t.float    "spaminess"
+    t.string   "signature"
+    t.string   "author_ip",                         :null => false
+    t.string   "author_referer",                    :null => false
   end
 
   add_index "comments", ["created_at"], :name => "index_comments_on_created_at"
   add_index "comments", ["post_id"], :name => "index_comments_on_post_id"
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",     :default => 0
+    t.integer  "attempts",     :default => 0
+    t.text     "handler"
+    t.string   "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_until"
+    t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "open_id_authentication_associations", :force => true do |t|
     t.integer "issued"
