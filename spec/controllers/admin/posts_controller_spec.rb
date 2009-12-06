@@ -106,17 +106,9 @@ describe Admin::PostsController do
   end
 
   describe 'handling POST to create with valid attributes' do
-    def do_post
-      session[:logged_in] = true
-      post :create, :post => valid_post_attributes
-    end
-
     it 'creates a post' do
-      lambda { do_post }.should change(Post, :count).by(1)
-    end
-
-    it 'announces the post to defensio' do
-      lambda { do_post }.should change(Delayed::Job, :count).by(1)
+      session[:logged_in] = true
+      lambda { post :create, :post => valid_post_attributes }.should change(Post, :count).by(1)
     end
   end
 
@@ -179,7 +171,7 @@ end
 describe Admin::PostsController, 'with an AJAX request to preview' do
   before(:each) do
     Post.should_receive(:build_for_preview).and_return(@post = mock_model(Post))
-    controller.should_receive(:render).with(:partial => 'posts/post.html.erb')
+    controller.should_receive(:render).with(:partial => 'posts/post.html.erb', :locals => {:post => @post})
     session[:logged_in] = true
     xhr :post, :preview, :post => {
       :title        => 'My Post',
