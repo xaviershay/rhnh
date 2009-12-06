@@ -2,7 +2,7 @@
 # This file contains no secret information, so can be stored in source control (unlike database.yml)
 title: "Xavier Shay's Blog"
 url:   http://rhnh.net
-feed:  http://feeds.feedburner.com/rhnh
+feed:  http://feeds2.feedburner.com/rhnh
 author:
   name:  Xavier Shay
   email: notreal@rhnh.net
