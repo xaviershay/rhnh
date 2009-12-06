@@ -32,8 +32,8 @@ $(document).ready(function() {
       }
     }
 
-    $(document).keypress(function(e) {
-      if (e.metaKey && (e.which == 101 || e.which == 5)) {
+    $(document).keyup(function(e) {
+      if (e.metaKey && (e.which == 69)) { // Works in recent Safari and FF, unsure about IE
         toggle_preview();
         e.preventDefault();
       }
