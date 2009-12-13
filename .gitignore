@@ -6,5 +6,6 @@ config/mailer.rb
 config/database.yml
 db/schema.rb
 config/initializers/db2s3.rb
+config/initializers/session_store.rb
 config/*.sphinx.conf
 db/sphinx
