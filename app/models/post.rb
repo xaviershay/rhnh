@@ -17,7 +17,7 @@ class Post < ActiveRecord::Base
   def related_posts
     Post.search(:limit => 4, :conditions => {:tag_list => tag_list.join("|")}).reject {|x| x == self }.first(3)
   rescue Riddle::ConnectionError => e
-    ExceptionNotifier::Notifier.exception_notification({'rack.input' => ''}, e).deliver
+    # ExceptionNotifier::Notifier.exception_notification({'rack.input' => ''}, e).deliver
     []
   end
 
