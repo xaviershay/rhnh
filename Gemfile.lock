@@ -137,4 +137,4 @@ DEPENDENCIES
   ruby-openid
   thinking-sphinx (~> 2.0.0)
   webrat
-  will_paginate (~> 3.0.pre3)
+  will_paginate (~> 3.0.pre2)
