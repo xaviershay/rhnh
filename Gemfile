@@ -27,6 +27,7 @@ gem 'formtastic'
 gem "will_paginate", "~> 3.0.pre2"
 gem 'thinking-sphinx', '~> 2.0.0', :require => 'thinking_sphinx'
 gem "exception_notification_rails3", '~> 1.1', :require => 'exception_notifier'
+gem 'db2s3'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
