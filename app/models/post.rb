@@ -11,14 +11,17 @@ class Post < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   def approved_comments(options = {})
     if options.empty?
-      comments.reject {|comment| comment.spam? }
+      comments
     else
-      comments.find(:all, {:conditions => ['comments.spam = ?', false]}.merge(options))
+      comments.find(:all, options)
     end
   end
 
   def related_posts
     Post.search(:limit => 4, :conditions => {:tag_list => tag_list.join("|")}).reject {|x| x == self }.first(3)
+  rescue Riddle::ConnectionError => e
+    ExceptionNotifier::Notifier.exception_notification({'rack.input' => ''}, e).deliver
+    []
   end
 
   before_validation       :generate_slug

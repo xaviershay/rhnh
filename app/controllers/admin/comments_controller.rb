@@ -1,5 +1,5 @@
 class Admin::CommentsController < Admin::BaseController
-  before_filter :find_comment, :except => [:index, :spam]
+  before_filter :find_comment, :except => [:index]
 
   def index
     @comments = Comment.paginate(

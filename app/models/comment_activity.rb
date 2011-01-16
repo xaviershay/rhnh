@@ -15,7 +15,7 @@ class CommentActivity
 
   class << self
     def find_recent
-      Post.find(:all, {
+      Post.find(:all,
         :group  => "comments.post_id, posts." + Post.column_names.join(", posts."),
         :select => 'posts.*, max(comments.created_at), comments.post_id',
         :joins  => 'INNER JOIN comments ON comments.post_id = posts.id',

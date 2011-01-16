@@ -5,7 +5,7 @@ gem 'rails', '3.0.3'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'mysql2'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -25,6 +25,7 @@ gem 'coderay'
 gem 'lesstile'
 gem 'formtastic'
 gem 'will_paginate', '~> 3.0.pre3'
+gem 'thinking-sphinx', '~> 2.0.0', :require => 'thinking_sphinx'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators

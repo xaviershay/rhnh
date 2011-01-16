@@ -67,33 +67,6 @@ class Comment < ActiveRecord::Base
   end
 
   class << self
-    def spam_conditions(spam = true)
-      if spam
-        {:conditions => ['comments.spam = ?', true]}
-      else
-        {:conditions => ['comments.spam = ? AND comments.spaminess IS NOT NULL', false]}
-      end
-    end
-
-    def find_spam(args = {})
-      find(:all, spam_conditions.merge(args))
-    end
-
-<<<<<<< HEAD
-    def destroy_spam_with_undo
-      comments = find_spam(:include => :post)
-      transaction do
-        comments.each(&:destroy)
-        return DeleteCommentsUndo.create_undo(comments)
-      end
-    end
-
-    def count_spam
-      count(:all, spam_conditions)
-    end
-
-=======
->>>>>>> enki/master
     def new_with_filter(params)
       comment = Comment.new(params)
       comment.created_at = Time.now
