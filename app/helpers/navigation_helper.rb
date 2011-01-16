@@ -9,7 +9,7 @@ module NavigationHelper
 
   def category_links_for_navigation
     link = Struct.new(:name, :url)
-    ["Code", "Food", "Ethics"].collect {|label| link.new(label, posts_path(:tag => label)) }
+    ["Code", "Food", "Ethics"].collect {|label| link.new(label, posts_path(:tag => label.downcase)) }
   end
 
   def class_for_tab(tab_name, index)
