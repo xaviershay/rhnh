@@ -1,12 +1,9 @@
 class Post < ActiveRecord::Base
   DEFAULT_LIMIT = 15
 
-  acts_as_defensio_article :validate_key => false
   acts_as_taggable
 
   has_many :searchable_tags, :through => :taggings, :source => :tag,  :conditions => "tags.name NOT IN ('Ruby', 'Code', 'Life')"
-
-  include DefensioArticle
 
   has_many :comments, :dependent => :destroy
   def approved_comments(options = {})

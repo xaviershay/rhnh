@@ -1,8 +1,4 @@
 class Comment < ActiveRecord::Base
-  acts_as_defensio_comment :fields => { :content => :body, :article => :post }, :validate_key => false
-
-  include DefensioComment
-
   DEFAULT_LIMIT = 15
 
   attr_accessor         :openid_error
