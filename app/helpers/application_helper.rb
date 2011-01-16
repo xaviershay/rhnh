@@ -1,13 +1,12 @@
-# Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def author
-    Struct.new(:name, :email).new(config[:author][:name], config[:author][:email])
+    Struct.new(:name, :email).new(enki_config[:author][:name], enki_config[:author][:email])
   end
 
   def open_id_delegation_link_tags(server, delegate)
-    links = <<-EOS
-      <link rel="openid.server" href="#{server}" />
-      <link rel="openid.delegate" href="#{delegate}" />
+    raw links = <<-EOS
+      <link rel="openid.server" href="#{server}">
+      <link rel="openid.delegate" href="#{delegate}">
     EOS
   end
 
@@ -17,6 +16,6 @@ module ApplicationHelper
       'author'     => 'Please provide your name or OpenID identity URL',
       'human_test' => 'Please learn good math',
       'base'       => error.last
-    }[error.first] || raise("Unknown error description for: #{error.first}")
+    }[error.first.to_s] || raise("Unknown error description for: #{error.first}")
   end
 end

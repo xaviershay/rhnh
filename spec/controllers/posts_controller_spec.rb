@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe 'successful posts list', :shared => true do
+shared_examples_for 'successful posts list' do
   it "should be successful" do
     do_get
     response.should be_success
@@ -14,6 +14,12 @@ describe 'successful posts list', :shared => true do
   it "should assign the found posts for the view" do
     do_get
     assigns[:posts].should == @posts
+  end
+end
+
+shared_examples_for "ATOM feed" do
+  it "renders with no layout" do
+    response.should render_template(nil)
   end
 end
 
@@ -67,9 +73,14 @@ describe PostsController do
   end
 
   describe 'handling GET to index with invalid tag'do
-    it "returns missing" do
+    it "shows post not found" do
+      # This would normally 404, except the way future dated posts are handled
+      # means it is possible for a tag to exist (and show up in the navigation)
+      # without having any public posts. If that issue is ever fixed, this
+      # behaviour should revert to 404ing.
       Post.stub!(:find_recent).and_return([])
-      lambda { get :index, :tag => 'bogus' }.should raise_error(ActiveRecord::RecordNotFound)
+      get :index, :tag => 'bogus'
+      assigns(:posts).should be_empty
     end
   end
 

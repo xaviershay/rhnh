@@ -1,40 +1,45 @@
-ActionController::Routing::Routes.draw do |map|
-  map.namespace :admin do |admin|
-    admin.resource :session
+Enki::Application.routes.draw do
+  namespace 'admin' do
+    resource :session
 
-    admin.resource :dashboard, :controller => 'dashboard'
+    resources :posts, :pages do
+      post 'preview', :on => :collection
+    end
+    resources :comments
+    resources :undo_items do
+      post 'undo', :on => :member
+    end
 
-    admin.resources :posts
-    admin.resources :pages
-    admin.resources :comments,
-      :collection => {:spam => :delete},
-      :member     => {:mark_as_spam => :post, :mark_as_ham => :post}
-    admin.resources :posts, :new => {:preview => :post}
-    admin.resources :pages, :new => {:preview => :post}
-    admin.resources :tags
-    admin.resources :undo_items, :member => {:undo => :post}
+    resources :posts
+    resources :pages
+    resources :comments
+    resources :posts, :new => {:preview => :post}
+    resources :pages, :new => {:preview => :post}
+    resources :tags
+    resources :undo_items, :member => {:undo => :post}
+
+    match 'health(/:action)' => 'health', :action => 'index', :as => :health
+
+    root :to => 'dashboard#show'
   end
 
-  map.admin_health '/admin/health/:action', :controller => 'admin/health', :action => 'index'
+  resources :archives, :only => [:index]
+  resources :pages, :only => [:show]
 
-  map.connect '/admin', :controller => 'admin/dashboard', :action => 'show'
-  map.connect '/admin/api', :controller => 'admin/api', :action => 'index'
-  map.archives '/archives', :controller => 'archives', :action => 'index'
+  match '/search', :to => 'search#show'
 
-  map.connect '/search', :controller => 'search', :action => 'show'
+  root :to => 'posts#index'
 
-  map.root :controller => 'posts', :action => 'index'
-  map.resources :posts
+  constraints :year => /\d{4}/, :month => /\d{2}/, :day => /\d{2}/ do
+    post ':year/:month/:day/:slug/comments' => 'comments#index'
+    get ':year/:month/:day/:slug/comments/new' => 'comments#new'
+    get ':year/:month/:day/:slug' => 'posts#show'
+  end
 
-  map.resources :pages
+  scope :to => 'posts#index' do
+    get 'posts.:format', :as => :formatted_posts
+    get '(:tag)', :as => :posts
+  end
 
-  map.connect ':year/:month/:day/:slug/comments', :controller => 'comments', :action => 'index'
-  map.connect ':year/:month/:day/:slug/comments/new', :controller => 'comments', :action => 'new'
-  map.connect ':year/:month/:day/:slug/comments.:format', :controller => 'comments', :action => 'index'
-  map.connect ':year/:month/:day/:slug', :controller => 'posts', :action => 'show', :requirements => { :year => /\d+/ }
-  map.posts_with_tag ':tag', :controller => 'posts', :action => 'index'
-  map.formatted_posts_with_tag ':tag.:format', :controller => 'posts', :action => 'index'
-
-  # Legacy routes
-  map.redirect '/feed/atom.xml', 'http://feeds.feedburner.com/rhnh', :permanent => true
+  root :to => 'posts#index'
 end

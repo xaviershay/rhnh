@@ -21,7 +21,7 @@ class CommentActivity
         :joins  => 'INNER JOIN comments ON comments.post_id = posts.id',
         :order  => 'max(comments.created_at) desc',
         :limit  => 5
-      }.merge(Comment.spam_conditions(false))).collect {|post|
+      ).collect {|post|
         CommentActivity.new(post)
       }.sort_by {|activity|
         activity.most_recent_comment.created_at

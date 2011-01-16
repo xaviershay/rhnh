@@ -16,9 +16,9 @@ class Comment < ActiveRecord::Base
   after_destroy         :denormalize
 
   validates_presence_of :author, :body, :post
+  validate :open_id_error_should_be_blank
 
-  def validate
-    super
+  def open_id_error_should_be_blank
     errors.add(:base, openid_error) unless openid_error.blank?
     errors.add(:human_test, "wrong") unless !new_record? || human_test.to_i == 4
   end
@@ -79,6 +79,7 @@ class Comment < ActiveRecord::Base
       find(:all, spam_conditions.merge(args))
     end
 
+<<<<<<< HEAD
     def destroy_spam_with_undo
       comments = find_spam(:include => :post)
       transaction do
@@ -91,6 +92,8 @@ class Comment < ActiveRecord::Base
       count(:all, spam_conditions)
     end
 
+=======
+>>>>>>> enki/master
     def new_with_filter(params)
       comment = Comment.new(params)
       comment.created_at = Time.now

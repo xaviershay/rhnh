@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe PageTitleHelper do
   include PageTitleHelper
 
-  def config
+  def enki_config
     {:title => 'Blog Title'}
   end
 
@@ -34,6 +34,17 @@ describe PageTitleHelper do
   describe '#page_title' do
     it 'is the page title plus the site title' do
       posts_title("My Page").should == "My Page - Blog Title"
+    end
+  end
+
+  describe '#html_title' do
+    it 'uses the given string when present' do
+      html_title('a').should == "a"  
+    end
+
+    it 'defaults to the configured title if nothing is supplied' do
+      html_title('' ).should == "Blog Title"  
+      html_title(nil).should == "Blog Title"  
     end
   end
 end

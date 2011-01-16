@@ -1,6 +1,5 @@
 My blog, located at http://rhnh.net
 
 This is a fork of enki, to which I have added such things as:
- * Asynchronous spam filtering of comments
  * Sphinx search
  * db2s3 backups

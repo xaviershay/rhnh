@@ -1,21 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC
-    "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN"
-    "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg-flat.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
-  <meta name="description" content="Xavier Shay blogs about code here, mostly Ruby on Rails." />
-  <title><%= yield(:page_title) || config[:title] %></title>
+  <meta charset="utf-8">
+  <title><%= html_title yield(:page_title) %></title>
+  <%= csrf_meta_tag %>
   <%= stylesheet_link_tag 'rhnh-standard' %>
-  <%= javascript_include_tag 'jquery.js' %>
-  <%= open_id_delegation_link_tags(h(config[:open_id_delegation, :server]), h(config[:open_id_delegation, :delegate])) if config[:open_id_delegation] %>
+  <%= javascript_include_tag 'jquery' %>
+  <%= javascript_include_tag 'rails' %>
+  <%= open_id_delegation_link_tags(enki_config[:open_id_delegation, :server], enki_config[:open_id_delegation, :delegate]) if enki_config[:open_id_delegation] %>
   <%= yield(:head) %>
 </head>
 <body>
   <div id="page_container">
-    <h1 id="page_heading"><a href="<%= config[:url] %>">Robot Has No Heart</a></h1>
+    <h1 id="page_heading"><a href="<%= root_url %>">Robot Has No Heart</a></h1>
     <h2 id="page_subtitle">Xavier Shay blogs here</h2>
     <img id="robot-head" alt="A robot that does not have a heart" class="eyecandy" src="/images/robot_head.png" />
 <!--
@@ -30,6 +27,7 @@
       </svg:g>
     </svg:svg>
 -->
+=======
 
     <div id="main">
       <%= yield %>
@@ -96,7 +94,7 @@ xmlns:svg="http://www.w3.org/2000/svg"
 </svg:svg>
 -->
 
-    <div id="footer"><%=h config[:title] %> &#169; <%=h config[:author, :name] %>. Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a> and <%= link_to "ATOM", "http://feedvalidator.org/check.cgi?url=#{h(config[:url])}/posts.atom" %>. Powered by <a href="http://www.enkiblog.com" title="A Ruby on Rails blogging app for the fashionable developer">Enki</a>.</div>
+    <div id="footer"><%= enki_config[:title] %> &#169; <%= enki_config[:author, :name] %>. Valid <a href="http://validator.w3.org/check?uri=referer">HTML5</a> and <%= link_to "ATOM", "http://feedvalidator.org/check.cgi?url=#{enki_config[:url]}/posts.atom" %>. Powered by <a href="http://www.enkiblog.com" title="A Ruby on Rails blogging app for the fashionable developer">Enki</a>.</div>
   </div>
   <% if RAILS_ENV == 'production' -%>
   <script type="text/javascript">

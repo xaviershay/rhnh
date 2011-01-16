@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe CommentsController, 'with GET to #index' do
+  include UrlHelper
+
   it 'redirects to the parent post URL' do
     @mock_post = mock_model(Post,
       :published_at => 1.year.ago,
@@ -13,7 +15,9 @@ describe CommentsController, 'with GET to #index' do
   end
 end
 
-describe 'creating new comment', :shared => true do
+shared_examples_for 'creating new comment' do
+  include UrlHelper
+
   it 'assigns comment' do
     assigns(:comment).should_not be_nil
   end
@@ -32,7 +36,7 @@ describe 'creating new comment', :shared => true do
   end
 end
 
-describe "invalid comment", :shared => true do
+shared_examples_for "invalid comment" do
   it 'renders posts/show' do
     response.should be_success
     response.should render_template('posts/show')
@@ -59,128 +63,6 @@ describe CommentsController, 'handling commenting' do
     end
     Post.stub!(:find_by_permalink).and_return(@mock_post)
     @mock_post
-  end
-
-  def stub_open_id_authenticate(url, status_code, return_value)
-    status = mock("Result", :status => status_code, :server_url => 'http://example.com')
-    registration = {
-      "fullname" => "Don Alias",
-      "email" => "donalias@enkiblog.com"
-    }
-    @controller.stub!(:authenticate_with_open_id).and_yield(status,url, registration).and_return(return_value)
-  end
-
-  describe 'with a POST to #index requiring OpenID authentication' do
-    before do
-      mock_post!
-
-      @comment = {
-        'author'     => 'http://enkiblog.com',
-        'body'       => 'This is a comment',
-        'human_test' => '4'
-      }
-
-      @controller.stub!(:authenticate_with_open_id).and_return(nil)
-    end
-
-    def do_post
-      post :index, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => @comment
-    end
-
-    it 'stores a pending comment' do
-      do_post
-      session[:pending_comment].should == @comment
-    end
-
-    it 'redirects to OpenID authority' do
-      @controller.should_receive(:authenticate_with_open_id).and_return(nil)
-      do_post
-    end
-  end
-
-  describe 'with a POST to #index requiring OpenID authentication but unavailable server' do
-    before do
-      mock_post!
-
-      stub_open_id_authenticate('http://enkiblog.com', :missing, false)
-      post :index, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => {
-        'author'     => 'http://enkiblog.com',
-        'body'       => 'This is a comment',
-        'human_test' => '4'
-      }
-    end
-
-    it_should_behave_like("invalid comment")
-
-    it 'sets an appropriate error message on the comment' do
-      assigns(:comment).openid_error.should == "Sorry, the OpenID server couldn't be found"
-    end
-  end
-
-  describe CommentsController, 'with a canceled OpenID completion GET to #index' do
-    before do
-      mock_post!
-
-      stub_open_id_authenticate('http://enkiblog.com', :canceled, false)
-      post :index, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => {
-        'author'     => 'http://enkiblog.com',
-        'body'       => 'This is a comment',
-        'human_test' => '4'
-      }
-    end
-
-    it_should_behave_like("invalid comment")
-
-    it 'sets an appropriate error message on the comment' do
-      assigns(:comment).openid_error.should == "OpenID verification was canceled"
-    end
-  end
-
-  describe CommentsController, 'with a failed OpenID completion GET to #index' do
-    before do
-      mock_post!
-
-      stub_open_id_authenticate('http://enkiblog.com', :failed, false)
-      post :index, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => {
-        'author' => 'http://enkiblog.com',
-        'body'   => 'This is a comment'
-      }
-    end
-
-    it_should_behave_like("invalid comment")
-
-    it 'sets an appropriate error message on the comment' do
-      assigns(:comment).openid_error.should == "Sorry, the OpenID verification failed"
-    end
-  end
-
-  describe 'with a successful OpenID completion GET to #index' do
-    before do
-      mock_post!
-
-      session[:pending_comment] = {
-        'author'     => 'http://enkiblog.com',
-        'body'       => 'This is a comment',
-        'human_test' => '4'
-      }
-
-      stub_open_id_authenticate('http://enkiblog.com', :successful, false)
-      post :index, :year => '2007', :month => '01', :day => '01', :slug => 'a-post'
-    end
-
-    it_should_behave_like("creating new comment")
-
-    it 'records OpenID identity url' do
-      assigns(:comment).author_url.should == 'http://enkiblog.com'
-    end
-
-    it 'uses full name as author' do
-      assigns(:comment).author.should == 'Don Alias'
-    end
-
-    it 'records email' do
-      assigns(:comment).author_email.should == 'donalias@enkiblog.com'
-    end
   end
 
   describe "with a POST to #index (non-OpenID comment)" do
@@ -234,13 +116,13 @@ end
 describe CommentsController, 'with an AJAX request to new' do
   before(:each) do
     Comment.should_receive(:build_for_preview).and_return(@comment = mock_model(Comment))
-    controller.should_receive(:render).with(:partial => 'comment.html.erb')
 
     xhr :get, :new, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => {
       'author'     => 'http://enkiblog.com',
       'body'       => 'This is a comment',
       'human_test' => '4'
     }
+    response.should be_success
   end
 
   it "assigns a new comment for the view" do

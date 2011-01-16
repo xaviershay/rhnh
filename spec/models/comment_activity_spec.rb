@@ -4,16 +4,12 @@ describe CommentActivity, '#comments' do
 
   def valid_comment_attributes(extra = {})
     {
-      :author => 'Don Alias',
-      :author_url => "me",
+      :author       => 'Don Alias',
+      :author_url   => "me",
       :author_email => "me@fake.com",
-      :human_test => '4',
-      :author_ip => '',
-      :author_referer => '',
-      :spam => false,
-      :spaminess => '0.5',
-      :body   => 'This is a comment',
-      :post   => Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")
+      :human_test   => '4',
+      :body         => 'This is a comment',
+      :post         => Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")
     }.merge(extra)
   end
 
@@ -54,7 +50,7 @@ describe CommentActivity, '#comments' do
     post = mock_model(Post)
     activity = CommentActivity.new(post)
 
-    post.should_receive(:approved_comments).once.and_return(mock('stub', :null_object => true))
+    post.should_receive(:approved_comments).once.and_return(mock('stub').as_null_object)
     2.times { activity.comments }
   end
 end

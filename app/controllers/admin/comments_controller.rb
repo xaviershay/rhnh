@@ -9,12 +9,6 @@ class Admin::CommentsController < Admin::BaseController
     )
   end
 
-  def spam
-    undo_item = Comment.destroy_spam_with_undo
-    flash[:notice] = undo_item.description
-    redirect_to :back
-  end
-
   def show
     respond_to do |format|
       format.html {
@@ -32,28 +26,6 @@ class Admin::CommentsController < Admin::BaseController
     end
   end
 
-  def mark_as_spam
-    @comment.send_later(:report_as_spam)
-    respond_to do |format|
-      format.html { redirect_to :back }
-      format.json { render :json => {
-        :undo_message => 'Marked comment as spam',
-        :comment      => @comment
-      }}
-    end
-  end
-
-  def mark_as_ham
-    @comment.send_later(:report_as_ham)
-    respond_to do |format|
-      format.html { redirect_to :back }
-      format.json { render :json => {
-        :undo_message => 'Marked comment as ham',
-        :comment      => @comment
-      }}
-    end
-  end
-
   def destroy
     undo_item = @comment.destroy_with_undo
 
@@ -66,7 +38,7 @@ class Admin::CommentsController < Admin::BaseController
         render :json => {
           :undo_path    => undo_admin_undo_item_path(undo_item),
           :undo_message => undo_item.description,
-          :comment      => @comment
+          :comment      => @comment.attributes
         }.to_json
       }
     end

@@ -1,2 +1,5 @@
-ExceptionNotifier.exception_recipients = [Enki::Config.new[:author, :email]]
+Enki::Application.config.middleware.use ExceptionNotifier,
+  :email_prefix => "[Enki] ",
+  :sender_address => [Enki::Config.default[:author, :email]],
+  :exception_recipients => [Enki::Config.default[:author, :email]]
 require "#{RAILS_ROOT}/config/mailer"

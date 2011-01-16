@@ -9,3 +9,6 @@ config/initializers/db2s3.rb
 config/initializers/session_store.rb
 config/*.sphinx.conf
 db/sphinx
+.bundle
+*.log
+>>>>>>> enki/master
