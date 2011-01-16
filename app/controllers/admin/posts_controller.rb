@@ -15,7 +15,6 @@ class Admin::PostsController < Admin::BaseController
   def create
     @post = Post.new(params[:post])
     if @post.save
-      @post.send_later(:announce_article!)
       respond_to do |format|
         format.html {
           flash[:notice] = "Created post '#{@post.title}'"
