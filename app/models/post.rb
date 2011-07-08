@@ -70,6 +70,13 @@ class Post < ActiveRecord::Base
       end
     end
 
+    # Overriden from acts_as_taggable_on_steroids to change LIKE to ILIKE
+    # for case-sensitively under postgres.
+    def tags_condition(tags, table_name = Tag.table_name)
+      condition = tags.map { |t| sanitize_sql(["#{table_name}.name ILIKE ?", t]) }.join(" OR ")
+      "(" + condition + ")"
+    end
+
     def find_by_permalink(year, month, day, slug, options = {})
       begin
         day = Time.parse([year, month, day].collect(&:to_i).join("-")).midnight

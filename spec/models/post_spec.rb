@@ -21,6 +21,12 @@ describe Post, "integration" do
 end
 
 describe Post, ".find_recent" do
+  it 'finds recent posts with a given tag case insensitively' do
+    expected = Post.create!(valid_post_attributes(tag_list: ['Awesome']))
+
+    Post.find_recent(tag: 'awesome').should == [expected]
+  end
+
   it 'finds the most recent posts that were published before now' do
     now = Time.now
     Time.stub!(:now).and_return(now)
