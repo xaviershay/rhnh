@@ -12,3 +12,4 @@ db/sphinx
 .bundle
 *.log
 >>>>>>> enki/master
+.rvmrc
