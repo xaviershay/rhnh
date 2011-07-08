@@ -137,16 +137,14 @@ class Post < ActiveRecord::Base
     super(value)
   end
 
-#   define_index do
-#     indexes title
-#     indexes body
-#     indexes searchable_tags(:name), :as => :tag_list
-# 
-#     has tags(:id), :as => :tags
-#   end
+  def self.search(keyword)
+    vectors = %w(body title cached_tag_list).
+      map {|column| "to_tsvector('english', #{column})" }.
+      join(" || ' ' || ")
 
-  def self.search(*args)
-    []
+    all(:conditions => [
+      "#{vectors} @@ to_tsquery('english', ?)", 
+      keyword
+    ])
   end
-
 end

@@ -13,19 +13,19 @@
 ActiveRecord::Schema.define(:version => 20081224020432) do
 
   create_table "comments", :force => true do |t|
-    t.integer  "post_id",                           :null => false
-    t.string   "author",                            :null => false
-    t.string   "author_url",                        :null => false
-    t.string   "author_email",                      :null => false
-    t.text     "body",                              :null => false
-    t.text     "body_html",                         :null => false
+    t.integer  "post_id",                                                         :null => false
+    t.string   "author",                                                          :null => false
+    t.string   "author_url",                                                      :null => false
+    t.string   "author_email",                                                    :null => false
+    t.text     "body",                                                            :null => false
+    t.text     "body_html",                                                       :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "spam",           :default => false
-    t.float    "spaminess"
+    t.boolean  "spam",                                         :default => false
+    t.decimal  "spaminess",      :precision => 1, :scale => 0
     t.string   "signature"
-    t.string   "author_ip",                         :null => false
-    t.string   "author_referer",                    :null => false
+    t.string   "author_ip",                                                       :null => false
+    t.string   "author_referer",                                                  :null => false
   end
 
   add_index "comments", ["created_at"], :name => "index_comments_on_created_at"
@@ -85,6 +85,10 @@ ActiveRecord::Schema.define(:version => 20081224020432) do
   end
 
   add_index "posts", ["published_at"], :name => "index_posts_on_published_at"
+
+  create_table "schema_info", :id => false, :force => true do |t|
+    t.integer "version"
+  end
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false

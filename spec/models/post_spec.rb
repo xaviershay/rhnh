@@ -1,6 +1,13 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 
+def valid_post_attributes(extra = {})
+  {
+    title: 'My Post',
+    body:  'My Body'
+  }.merge(extra)
+end
+
 describe Post, "integration" do
   describe 'setting tag_list' do
     it 'increments tag counter cache' do
@@ -185,6 +192,23 @@ describe Post, '#related_posts' do
     ])
     Post.should_receive(:search).with(:limit => 4, :conditions => {:tag_list => 'robot|heart'}).and_return([post, 1, 2, 3, 4])
     post.related_posts.should == [1, 2, 3]
+  end
+end
+
+describe Post, '.search' do
+  it 'returns posts that have a matching body' do
+    expected = Post.create!(valid_post_attributes(body: 'My Awesome Post'))
+    Post.search('awesome').should == [expected]
+  end
+
+  it 'returns posts that have a matching title' do
+    expected = Post.create!(valid_post_attributes(title: 'My Awesome Post'))
+    Post.search('awesome').should == [expected]
+  end
+
+  it 'returns posts that have a matching tag' do
+    expected = Post.create!(valid_post_attributes(tag_list: 'My Awesome Post'))
+    Post.search('awesome').should == [expected]
   end
 end
 
