@@ -24,6 +24,18 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+
+  def valid_comment_attributes
+    {
+      :author         => 'Don',
+      :author_url     => '',
+      :author_email   => '',
+      :body           => 'comment',
+      :human_test     => 4,
+      :author_ip      => '',
+      :author_referer => ''
+    }
+  end
 end
 
 module DisableFlashSweeping

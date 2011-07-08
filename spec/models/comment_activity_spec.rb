@@ -3,14 +3,9 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe CommentActivity, '#comments' do
 
   def valid_comment_attributes(extra = {})
-    {
-      :author       => 'Don Alias',
-      :author_url   => "me",
-      :author_email => "me@fake.com",
-      :human_test   => '4',
-      :body         => 'This is a comment',
-      :post         => Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")
-    }.merge(extra)
+    super().merge({
+      :post => Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")
+    }.merge(extra))
   end
 
   context "find recent comments" do
