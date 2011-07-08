@@ -224,6 +224,14 @@ describe Post, '#related_posts' do
     post.related_posts.should == expected
   end
 
+  it 'finds posts with tags with spaces' do
+    post = Post.create!(valid_post_attributes(tag_list: ['peanut butter']))
+    expected = [
+      Post.create!(valid_post_attributes(tag_list: ['peanut butter'])),
+    ]
+    post.related_posts.should == expected
+  end
+
   it 'does not find posts with a common matching tag' do
     post = Post.create!(valid_post_attributes(tag_list: ['ruby']))
     chaff = [

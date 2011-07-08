@@ -155,6 +155,7 @@ class Post < ActiveRecord::Base
     excluded_tags = %w(ruby code ethics)
     query = tag_list.
       reject {|tag| excluded_tags.include?(tag.downcase) }.
+      map {|tag| tag.split(/\s+/) }.
       join("|")
 
     Post.
