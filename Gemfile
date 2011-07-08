@@ -25,7 +25,6 @@ gem 'coderay'
 gem 'lesstile'
 gem 'formtastic'
 gem "will_paginate", "~> 3.0.pre2"
-gem 'thinking-sphinx', '~> 2.0.0', :require => 'thinking_sphinx'
 gem "exception_notification_rails3", '~> 1.1', :require => 'exception_notifier'
 
 # Bundle gems for the local environment. Make sure to

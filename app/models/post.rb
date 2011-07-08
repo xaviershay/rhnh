@@ -137,11 +137,16 @@ class Post < ActiveRecord::Base
     super(value)
   end
 
-  define_index do
-    indexes title
-    indexes body
-    indexes searchable_tags(:name), :as => :tag_list
+#   define_index do
+#     indexes title
+#     indexes body
+#     indexes searchable_tags(:name), :as => :tag_list
+# 
+#     has tags(:id), :as => :tags
+#   end
 
-    has tags(:id), :as => :tags
+  def self.search(*args)
+    []
   end
+
 end
