@@ -152,8 +152,13 @@ class Post < ActiveRecord::Base
   end
 
   def related_posts
+    excluded_tags = %w(ruby code ethics)
+    query = tag_list.
+      reject {|tag| excluded_tags.include?(tag.downcase) }.
+      join("|")
+
     Post.
-      search(tag_list.join("|"), :complex, %w(cached_tag_list)).
+      search(query, :complex, %w(cached_tag_list)).
       where(['not (id = ?)', id]).
       limit(3)
   end

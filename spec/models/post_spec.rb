@@ -223,6 +223,14 @@ describe Post, '#related_posts' do
     ]
     post.related_posts.should == expected
   end
+
+  it 'does not find posts with a common matching tag' do
+    post = Post.create!(valid_post_attributes(tag_list: ['ruby']))
+    chaff = [
+      Post.create!(valid_post_attributes(tag_list: ['ruby'])),
+    ]
+    post.related_posts.should == []
+  end
 end
 
 describe Post, 'validations' do
