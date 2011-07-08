@@ -3,8 +3,6 @@ class Post < ActiveRecord::Base
 
   acts_as_taggable
 
-  has_many :searchable_tags, :through => :taggings, :source => :tag,  :conditions => "tags.name NOT IN ('Ruby', 'Code', 'Life')"
-
   has_many :comments, :dependent => :destroy
   def approved_comments(options = {})
     if options.empty?
