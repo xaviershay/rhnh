@@ -14,13 +14,6 @@ class Post < ActiveRecord::Base
     end
   end
 
-  def related_posts
-    Post.search(:limit => 4, :conditions => {:tag_list => tag_list.join("|")}).reject {|x| x == self }.first(3)
-  rescue Riddle::ConnectionError => e
-    # ExceptionNotifier::Notifier.exception_notification({'rack.input' => ''}, e).deliver
-    []
-  end
-
   before_validation       :generate_slug
   before_validation       :set_dates
   before_save             :apply_filter
@@ -137,14 +130,27 @@ class Post < ActiveRecord::Base
     super(value)
   end
 
-  def self.search(keyword)
-    vectors = %w(body title cached_tag_list).
+  def self.search(keyword, type = :plain, columns = %w(body title cached_tag_list))
+    vectors = columns.
       map {|column| "to_tsvector('english', #{column})" }.
       join(" || ' ' || ")
 
-    all(:conditions => [
-      "#{vectors} @@ to_tsquery('english', ?)", 
-      keyword
-    ])
+    query_function = {
+      plain: 'plainto_tsquery',
+      complex: 'to_tsquery'
+    }.fetch(type)
+
+    query = sanitize_sql_array(["#{query_function}('english', ?)", keyword])
+
+    where("#{vectors} @@ #{query}").
+      order("ts_rank_cd(#{vectors}, #{query}) DESC")
   end
+
+  def related_posts
+    Post.
+      search(tag_list.join("|"), :complex, %w(cached_tag_list)).
+      where(['not (id = ?)', id]).
+      limit(3)
+  end
+
 end
