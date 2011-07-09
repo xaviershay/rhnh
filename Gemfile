@@ -10,6 +10,7 @@ gem 'pg'
 # Use unicorn as the web server
 # gem 'unicorn'
 gem 'thin'
+gem 'rack-contrib'
 gem 'rack-cache'
 gem 'dalli'
 
