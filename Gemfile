@@ -11,6 +11,7 @@ gem 'pg'
 # gem 'unicorn'
 gem 'thin'
 gem 'rack-cache'
+gem 'dalli'
 
 # Deploy with Capistrano
 # gem 'capistrano'
