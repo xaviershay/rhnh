@@ -10,6 +10,7 @@ gem 'pg'
 # Use unicorn as the web server
 # gem 'unicorn'
 gem 'thin'
+gem 'rack-cache'
 
 # Deploy with Capistrano
 # gem 'capistrano'
