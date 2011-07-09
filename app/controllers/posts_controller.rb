@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   def index
     @tag = params[:tag]
     @posts = Post.find_recent(:tag => @tag, :include => :tags)
-    if stale?(last_modified: posts_last_updated(@posts))
+    if stale?(last_modified: posts_last_updated(@posts), public: true)
       respond_to do |format|
         format.html
         format.atom { render :layout => false }
@@ -16,7 +16,7 @@ class PostsController < ApplicationController
         params[x]
       } << {:include => [:comments, :tags]})
     )
-    if stale?(last_modified: @post.last_changed_at.utc)
+    if stale?(last_modified: @post.last_changed_at.utc, public: true)
       @comment = Comment.new
     end
   end
