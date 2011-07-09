@@ -108,6 +108,7 @@ GEM
       railties (~> 3.0)
       rspec (~> 2.4.0)
     ruby-openid (2.1.8)
+    silent-postgres (0.0.8)
     term-ansicolor (1.0.5)
     thin (1.2.11)
       daemons (>= 1.0.9)
@@ -145,6 +146,7 @@ DEPENDENCIES
   rspec
   rspec-rails
   ruby-openid
+  silent-postgres
   thin
   webrat
   will_paginate (~> 3.0.pre2)

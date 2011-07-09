@@ -41,4 +41,5 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'hpricot'
+  gem 'silent-postgres'
 end
