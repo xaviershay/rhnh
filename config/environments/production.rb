@@ -57,6 +57,7 @@ Enki::Application.configure do
     :domain         => ENV['SENDGRID_DOMAIN']
   }
 
+  config.cache_store = :dalli_store
   config.middleware.use Rack::Cache,
     :verbose => true,
     :metastore => "memcached://#{ENV['MEMCACHE_SERVERS']}",
