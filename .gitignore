@@ -13,3 +13,4 @@ db/sphinx
 *.log
 >>>>>>> enki/master
 .rvmrc
+mysql2psql.yml
