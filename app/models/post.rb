@@ -37,6 +37,10 @@ class Post < ActiveRecord::Base
     published_at?
   end
 
+  def last_changed_at
+    [comments.maximum(:updated_at), updated_at].compact.max
+  end
+
   attr_accessor :published_at_natural
   def published_at_natural
     @published_at_natural ||= published_at.send_with_default(:strftime, 'now', "%Y-%m-%d %H:%M")
