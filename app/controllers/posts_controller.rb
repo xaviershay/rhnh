@@ -26,7 +26,8 @@ class PostsController < ApplicationController
   def posts_last_updated(posts)
     (
       [Comment.where(post_id: posts.map(&:id)).maximum(:updated_at)].compact +
-      posts.map(&:updated_at)
-    ).max
+      posts.map(&:updated_at) +
+      [EPOCH]
+    ).max.utc
   end
 end

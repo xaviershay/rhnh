@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  EPOCH = Date.new(2000,1,1).to_time
+
   protect_from_forgery
   after_filter :set_content_type
 
