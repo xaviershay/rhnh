@@ -5,8 +5,6 @@
   <title><%= html_title yield(:page_title) %></title>
   <%= csrf_meta_tag %>
   <%= stylesheet_link_tag 'rhnh-standard' %>
-  <%= javascript_include_tag 'jquery' %>
-  <%= javascript_include_tag 'rails' %>
   <%= open_id_delegation_link_tags(enki_config[:open_id_delegation, :server], enki_config[:open_id_delegation, :delegate]) if enki_config[:open_id_delegation] %>
   <%= yield(:head) %>
 </head>
@@ -95,7 +93,7 @@ xmlns:svg="http://www.w3.org/2000/svg"
 
     <div id="footer"><%= enki_config[:title] %> &#169; <%= enki_config[:author, :name] %>. Valid <a href="http://validator.w3.org/check?uri=referer">HTML5</a> and <%= link_to "ATOM", "http://feedvalidator.org/check.cgi?url=#{enki_config[:url]}/posts.atom" %>. Powered by <a href="http://www.enkiblog.com" title="A Ruby on Rails blogging app for the fashionable developer">Enki</a>.</div>
   </div>
-  <% if RAILS_ENV == 'production' -%>
+  <% if Rails.env.production? %>
   <script type="text/javascript">
   var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
   document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
@@ -105,5 +103,8 @@ xmlns:svg="http://www.w3.org/2000/svg"
   pageTracker._trackPageview();
   </script>
   <% end -%>
+  <%= javascript_include_tag 'jquery' %>
+  <%= javascript_include_tag 'rails' %>
+  <%= yield(:js) %>
 </body>
 </html>

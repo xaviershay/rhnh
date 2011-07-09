@@ -5,4 +5,13 @@ namespace :rhnh do
       comments.each(&:destroy)
     end
   end
+
+  desc "Show each post with its related posts, for testing."
+  task :related => :environment do
+    Post.find(:all, :include => :tags).each do |post|
+      puts post.title
+      related = post.related_posts
+      puts related.first(3).collect {|post| post.title }.inspect
+    end
+  end
 end

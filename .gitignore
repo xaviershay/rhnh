@@ -12,3 +12,5 @@ db/sphinx
 .bundle
 *.log
 >>>>>>> enki/master
+.rvmrc
+mysql2psql.yml

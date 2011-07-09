@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
+require 'rack/contrib/static_cache'
+
 module Enki
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -38,5 +40,18 @@ module Enki
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    config.middleware.use Rack::Deflater
+    config.middleware.use Rack::StaticCache, 
+      urls: %w(
+        /stylesheets
+        /images
+        /javascripts
+        /robots.txt
+        /favicon.ico
+        /yadis.xrdf
+      ),
+      root: "public_cached"
+    
   end
 end

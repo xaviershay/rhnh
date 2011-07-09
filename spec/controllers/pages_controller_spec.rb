@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe PagesController do
   describe 'handling GET for a single post' do
     before(:each) do
-      @page = mock_model(Page)
+      @page = mock_model(Page, updated_at: Time.now)
       Page.stub!(:find_by_slug).and_return(@page)
     end
 

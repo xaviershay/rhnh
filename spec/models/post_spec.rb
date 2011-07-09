@@ -1,6 +1,13 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 
+def valid_post_attributes(extra = {})
+  {
+    title: 'My Post',
+    body:  'My Body'
+  }.merge(extra)
+end
+
 describe Post, "integration" do
   describe 'setting tag_list' do
     it 'increments tag counter cache' do
@@ -14,6 +21,12 @@ describe Post, "integration" do
 end
 
 describe Post, ".find_recent" do
+  it 'finds recent posts with a given tag case insensitively' do
+    expected = Post.create!(valid_post_attributes(tag_list: ['Awesome']))
+
+    Post.find_recent(tag: 'awesome').should == [expected]
+  end
+
   it 'finds the most recent posts that were published before now' do
     now = Time.now
     Time.stub!(:now).and_return(now)
@@ -176,15 +189,55 @@ describe Post, '#denormalize_comments_count!' do
   end
 end
 
+describe Post, '.search' do
+  it 'returns posts that have a matching body' do
+    expected = Post.create!(valid_post_attributes(body: 'My Awesome Post'))
+    Post.search('awesome').should == [expected]
+  end
+
+  it 'returns posts that have a matching title' do
+    expected = Post.create!(valid_post_attributes(title: 'My Awesome Post'))
+    Post.search('awesome').should == [expected]
+  end
+
+  it 'returns posts that have a matching tag' do
+    expected = Post.create!(valid_post_attributes(tag_list: 'My Awesome Post'))
+    Post.search('awesome').should == [expected]
+  end
+end
+
 describe Post, '#related_posts' do
-  it 'returns first 3 related posts, excluding the post' do
-    post = Post.new
-    post.stub!(:tags).and_return([
-      mock_model(Tag, :name => 'robot'),
-      mock_model(Tag, :name => 'heart')
-    ])
-    Post.should_receive(:search).with(:limit => 4, :conditions => {:tag_list => 'robot|heart'}).and_return([post, 1, 2, 3, 4])
-    post.related_posts.should == [1, 2, 3]
+  it 'does not include self' do
+    post = Post.create!(valid_post_attributes(tag_list: 'awesome'))
+    post.related_posts.should_not include(post)
+  end
+
+  it 'finds posts with matching tags' do
+    post = Post.create!(valid_post_attributes(tag_list: ['awesome', 'code']))
+    expected = [
+      Post.create!(valid_post_attributes(tag_list: 'awesome code')),
+      Post.create!(valid_post_attributes(tag_list: 'awesome something'))
+    ]
+    chaff = [
+      Post.create!(valid_post_attributes(title: 'awesome', body: 'awesome'))
+    ]
+    post.related_posts.should == expected
+  end
+
+  it 'finds posts with tags with spaces' do
+    post = Post.create!(valid_post_attributes(tag_list: ['peanut butter']))
+    expected = [
+      Post.create!(valid_post_attributes(tag_list: ['peanut butter'])),
+    ]
+    post.related_posts.should == expected
+  end
+
+  it 'does not find posts with a common matching tag' do
+    post = Post.create!(valid_post_attributes(tag_list: ['ruby']))
+    chaff = [
+      Post.create!(valid_post_attributes(tag_list: ['ruby'])),
+    ]
+    post.related_posts.should == []
   end
 end
 

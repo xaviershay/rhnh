@@ -5,10 +5,14 @@ gem 'rails', '3.0.3'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+gem 'pg'
 
 # Use unicorn as the web server
 # gem 'unicorn'
+gem 'thin'
+gem 'rack-contrib'
+gem 'rack-cache'
+gem 'dalli'
 
 # Deploy with Capistrano
 # gem 'capistrano'
@@ -25,10 +29,7 @@ gem 'coderay'
 gem 'lesstile'
 gem 'formtastic'
 gem "will_paginate", "~> 3.0.pre2"
-gem 'thinking-sphinx', '~> 2.0.0', :require => 'thinking_sphinx'
 gem "exception_notification_rails3", '~> 1.1', :require => 'exception_notifier'
-gem 'db2s3'
-gem "aws-s3", '~> 0.5.1', :require => "aws/s3"
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
@@ -40,4 +41,5 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'hpricot'
+  gem 'silent-postgres'
 end

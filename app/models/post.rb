@@ -3,8 +3,6 @@ class Post < ActiveRecord::Base
 
   acts_as_taggable
 
-  has_many :searchable_tags, :through => :taggings, :source => :tag,  :conditions => "tags.name NOT IN ('Ruby', 'Code', 'Life')"
-
   has_many :comments, :dependent => :destroy
   def approved_comments(options = {})
     if options.empty?
@@ -12,13 +10,6 @@ class Post < ActiveRecord::Base
     else
       comments.find(:all, options)
     end
-  end
-
-  def related_posts
-    Post.search(:limit => 4, :conditions => {:tag_list => tag_list.join("|")}).reject {|x| x == self }.first(3)
-  rescue Riddle::ConnectionError => e
-    # ExceptionNotifier::Notifier.exception_notification({'rack.input' => ''}, e).deliver
-    []
   end
 
   before_validation       :generate_slug
@@ -44,6 +35,10 @@ class Post < ActiveRecord::Base
 
   def published?
     published_at?
+  end
+
+  def last_changed_at
+    [comments.maximum(:updated_at), updated_at].compact.max
   end
 
   attr_accessor :published_at_natural
@@ -75,6 +70,13 @@ class Post < ActiveRecord::Base
       else
         find(:all, options)
       end
+    end
+
+    # Overriden from acts_as_taggable_on_steroids to change LIKE to ILIKE
+    # for case-sensitively under postgres.
+    def tags_condition(tags, table_name = Tag.table_name)
+      condition = tags.map { |t| sanitize_sql(["#{table_name}.name ILIKE ?", t]) }.join(" OR ")
+      "(" + condition + ")"
     end
 
     def find_by_permalink(year, month, day, slug, options = {})
@@ -137,11 +139,33 @@ class Post < ActiveRecord::Base
     super(value)
   end
 
-  define_index do
-    indexes title
-    indexes body
-    indexes searchable_tags(:name), :as => :tag_list
+  def self.search(keyword, type = :plain, columns = %w(body title cached_tag_list))
+    vectors = columns.
+      map {|column| "to_tsvector('english', #{column})" }.
+      join(" || ' ' || ")
 
-    has tags(:id), :as => :tags
+    query_function = {
+      plain: 'plainto_tsquery',
+      complex: 'to_tsquery'
+    }.fetch(type)
+
+    query = sanitize_sql_array(["#{query_function}('english', ?)", keyword])
+
+    where("#{vectors} @@ #{query}").
+      order("ts_rank_cd(#{vectors}, #{query}) DESC")
   end
+
+  def related_posts
+    excluded_tags = %w(ruby code ethics)
+    query = tag_list.
+      reject {|tag| excluded_tags.include?(tag.downcase) }.
+      map {|tag| tag.split(/\s+/) }.
+      join("|")
+
+    Post.
+      search(query, :complex, %w(cached_tag_list)).
+      where(['not (id = ?)', id]).
+      limit(3)
+  end
+
 end
