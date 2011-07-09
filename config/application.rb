@@ -42,8 +42,15 @@ module Enki
     config.filter_parameters += [:password]
 
     config.middleware.use Rack::StaticCache, 
-      :urls => ["/stylesheets", "/images", "/javascripts"],
-      :root => "public_cached"
+      urls: %w(
+        /stylesheets
+        /images
+        /javascripts
+        /robots.txt
+        /favicon.ico
+        /yadis.xrdf
+      ),
+      root: "public_cached"
     
   end
 end

@@ -25,5 +25,7 @@ Enki::Application.configure do
   config.middleware.use Rack::Cache,
     :metastore => 'file:tmp/cache/meta',
     :entitystore => 'file:tmp/cache/entity'
+
+  config.serve_static_assets = false
 end
 
