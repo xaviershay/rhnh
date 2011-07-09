@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081224020432) do
+ActiveRecord::Schema.define(:version => 20110709024316) do
 
   create_table "comments", :force => true do |t|
     t.integer  "post_id",                                                         :null => false
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(:version => 20081224020432) do
   end
 
   add_index "pages", ["created_at"], :name => "index_pages_on_created_at"
+  add_index "pages", ["slug"], :name => "pages_slug_unique_idx", :unique => true
   add_index "pages", ["title"], :name => "index_pages_on_title"
 
   create_table "posts", :force => true do |t|
@@ -85,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20081224020432) do
   end
 
   add_index "posts", ["published_at"], :name => "index_posts_on_published_at"
+  add_index "posts", ["slug"], :name => "posts_slug_unique_idx"
 
   create_table "schema_info", :id => false, :force => true do |t|
     t.integer "version"
