@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.4'
+gem 'rake', '0.8.7'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -38,8 +39,7 @@ group :development, :test do
   gem 'cucumber-rails'
   gem 'webrat'
   gem 'factory_girl'
-  gem 'rspec'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '2.6.0'
   gem 'hpricot'
   gem 'silent-postgres'
 end
