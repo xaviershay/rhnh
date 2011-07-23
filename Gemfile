@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.3'
+gem 'rails', '3.0.4'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -28,7 +28,7 @@ gem 'aaronh-chronic', :require => 'chronic' # Fixes for 1.9.2
 gem 'coderay'
 gem 'lesstile'
 gem 'formtastic'
-gem "will_paginate", "~> 3.0.pre2"
+gem 'will_paginate', '= 3.0.pre2'
 gem "exception_notification_rails3", '~> 1.1', :require => 'exception_notifier'
 
 # Bundle gems for the local environment. Make sure to
