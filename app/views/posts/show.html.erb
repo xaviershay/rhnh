@@ -7,7 +7,7 @@
 <% end -%>
 <%= render :partial => 'posts/post', :locals => {:post => @post} %>
 <ol class="commentlist">
-  <% @post.approved_comments.each do |comment| -%>
+  <% @post.comments.order('created_at asc').each do |comment| -%>
   <li<%=raw cycle(' class="alt"', '') %> id="comment-<%= comment.id %>">
     <%= render :partial => 'comments/comment', :locals => {:comment => comment} %>
   </li>
