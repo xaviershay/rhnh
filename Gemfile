@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.4'
+gem 'rails', '3.0.19'
 gem 'rake', '0.8.7'
 
 # Bundle edge Rails instead:
@@ -36,7 +36,7 @@ gem "exception_notification_rails3", '~> 1.1', :require => 'exception_notifier'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'cucumber-rails'
+#   gem 'cucumber-rails'
   gem 'webrat'
   gem 'factory_girl'
   gem 'rspec-rails', '2.6.0'
