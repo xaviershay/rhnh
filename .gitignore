@@ -14,3 +14,4 @@ db/sphinx
 >>>>>>> enki/master
 .rvmrc
 mysql2psql.yml
+config/secret_token
