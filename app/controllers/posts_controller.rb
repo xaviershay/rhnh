@@ -8,6 +8,12 @@ class PostsController < ApplicationController
         format.atom { render :layout => false }
       end
     end
+  rescue ArgumentError => e
+    if e.message =~ /invalid byte sequence/
+      head 400
+    else
+      raise
+    end
   end
 
   def show
