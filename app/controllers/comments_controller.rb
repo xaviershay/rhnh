@@ -71,6 +71,8 @@ class CommentsController < ApplicationController
         render :template => 'posts/show'
       end
     end
+  rescue ArgumentError
+    redirect_to post_path(@post)
   end
 
   protected
