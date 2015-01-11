@@ -5,7 +5,9 @@
   <title><%= html_title yield(:page_title) %></title>
   <%= csrf_meta_tag %>
   <%= stylesheet_link_tag 'rhnh-standard' %>
-  <%= open_id_delegation_link_tags(enki_config[:open_id_delegation, :server], enki_config[:open_id_delegation, :delegate]) if enki_config[:open_id_delegation] %>
+  <%# open_id_delegation_link_tags(enki_config[:open_id_delegation, :server], enki_config[:open_id_delegation, :delegate]) if enki_config[:open_id_delegation] %>
+  <link rel="openid2.provider" href="https://www.google.com/accounts/o8/ud" />
+  <link rel="openid2.local_id" href="https://plus.google.com/+XavierShay" />
   <%= yield(:head) %>
 </head>
 <body>
