@@ -14,7 +14,7 @@ module ApplicationHelper
     {
       'body'       => 'Please comment',
       'author'     => 'Please provide your name or OpenID identity URL',
-      'human_test' => 'Please learn good math',
+      'human_test' => 'Please get this right',
       'base'       => error.last
     }[error.first.to_s] || raise("Unknown error description for: #{error.first}")
   end

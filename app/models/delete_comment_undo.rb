@@ -4,7 +4,7 @@ class DeleteCommentUndo < UndoItem
 
     comment = nil
     transaction do
-      comment = Comment.create(loaded_data.merge(:human_test => 4))
+      comment = Comment.create(loaded_data.merge(:human_test => Comment::HUMAN_ANSWER))
       raise UndoFailed if comment.new_record?
       self.destroy
     end

@@ -14,8 +14,8 @@ describe DeleteCommentsUndo do
       item.stub!(:transaction).and_yield
       item.stub!(:destroy)
 
-      Comment.should_receive(:create).with('a' => 'b', :human_test => 4).and_return(mock("comment", :new_record? => false))
-      Comment.should_receive(:create).with('a' => 'c', :human_test => 4).and_return(mock("comment", :new_record? => false))
+      Comment.should_receive(:create).with('a' => 'b', :human_test => Comment::HUMAN_ANSWER).and_return(mock("comment", :new_record? => false))
+      Comment.should_receive(:create).with('a' => 'c', :human_test => Comment::HUMAN_ANSWER).and_return(mock("comment", :new_record? => false))
       item.process!
     end
   end

@@ -20,7 +20,7 @@ Factory.define(:comment) do |a|
   a.author_url   'http://enkiblog.com'
   a.author_referer 'http://enkiblog.com'
   a.author_ip      ''
-  a.human_test 4
+  a.human_test 'robot'
   a.body     'I find this article thought provoking'
   a.association :post
 end

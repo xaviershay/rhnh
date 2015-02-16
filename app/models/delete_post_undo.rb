@@ -7,7 +7,7 @@ class DeletePostUndo < UndoItem
     transaction do
       post = Post.create!(post_attributes)
       loaded_data[:comments].each do |comment|
-        post.comments.create!(comment.except('id', 'post_id').merge(human_test: 4))
+        post.comments.create!(comment.except('id', 'post_id').merge(human_test: Comment::HUMAN_ANSWER))
       end
       self.destroy
     end

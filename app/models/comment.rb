@@ -1,5 +1,6 @@
 class Comment < ActiveRecord::Base
   DEFAULT_LIMIT = 15
+  HUMAN_ANSWER = 'robot'
 
   attr_accessor         :openid_error
   attr_accessor         :openid_valid
@@ -16,7 +17,7 @@ class Comment < ActiveRecord::Base
 
   def open_id_error_should_be_blank
     errors.add(:base, openid_error) unless openid_error.blank?
-    errors.add(:human_test, "wrong") unless !new_record? || human_test.to_i == 4
+    errors.add(:human_test, "wrong") unless !new_record? || human_test.to_s.downcase == HUMAN_ANSWER
   end
 
   def apply_filter

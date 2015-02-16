@@ -31,7 +31,7 @@ RSpec.configure do |config|
       :author_url     => '',
       :author_email   => '',
       :body           => 'comment',
-      :human_test     => 4,
+      :human_test     => Comment::HUMAN_ANSWER,
       :author_ip      => '',
       :author_referer => ''
     }
