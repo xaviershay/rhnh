@@ -11,6 +11,7 @@ author:
     - http://xaviershay.com/
     - https://xaviershay.myid.net/
     - https://xaviershay.myopenid.com/
+    - "https://www.google.com/accounts/o8/id?id=AItOawlTJLw1ph_62hT-fDDy2Lv-zEz4t5rcOKw"
 
 # Delete the following section if your site will not be acting as an OpenID delegate (http://wiki.openid.net/Delegation)
 # If you're deploying with mongrel, make sure you read http://rhnh.net/2008/04/13/nginx-openid-delegation-and-yadis
