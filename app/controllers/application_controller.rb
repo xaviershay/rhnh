@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
   EPOCH = Time.parse("2011-07-29 16:28:28 +1000")
 
+  # TODO: Remove after Rails 4 upgrade
+  # https://github.com/rails/rails/issues/9619
+  config.relative_url_root = ""
+
   protect_from_forgery
   after_filter :set_content_type
 
