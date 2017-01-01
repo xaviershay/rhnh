@@ -22,4 +22,27 @@ namespace :rhnh do
       system("heroku pg:backups capture --app rhnh && curl $(heroku pg:backups public-url --app rhnh) | pg_restore --clean --no-owner -d rhnh_development")
     end
   end
+
+  task :export_posts => :environment do
+    Post.find_each do |post|
+      filename = "%s-%s.lesstile" % [post.published_at.strftime("%Y-%m-%d"), post.slug]
+      dir = "../rhnh-static/_posts"
+
+      puts filename
+
+      body = <<-EOS
+---
+layout: post
+title:  #{post.title.inspect}
+date:   #{post.published_at.strftime("%F %T %:z")}
+tags:   #{post.tags.map {|x| x.name.downcase }.sort.inspect}
+---
+{% raw %}
+#{post.body}
+{% endraw %}
+      EOS
+
+      File.write(File.join(dir, filename), body)
+    end
+  end
 end
