@@ -14,4 +14,12 @@ namespace :rhnh do
       puts related.first(3).collect {|post| post.title }.inspect
     end
   end
+
+  desc "Fetch production database into development database"
+  task :fetch_production_db do
+    Bundler.with_clean_env do
+      system("heroku pg:backups delete --app rhnh --confirm rhnh $(heroku pg:backups --app rhnh 2> /dev/null | head -n 4 | tail -n 1 | cut -d ' ' -f 1)")
+      system("heroku pg:backups capture --app rhnh && curl $(heroku pg:backups public-url --app rhnh) | pg_restore --clean --no-owner -d rhnh_development")
+    end
+  end
 end
